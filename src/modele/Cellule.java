@@ -21,6 +21,10 @@ public class Cellule {
 	 * l'appel à [compteVoisines].
 	 */
 	private final int x, y;
+	/**
+	 * Et voilà pour savoir s'il y a un joueur
+	 */
+	private boolean joueur;
 
 	private boolean pasCoulee;
 
