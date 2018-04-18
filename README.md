@@ -8,9 +8,9 @@ Voici la licence :
 
 QueDalleLicence 4.8.28.39
 
-Moi Example Software License Agreement
+Moi Software License Agreement
 
-Moi Corporation ("Moi") grants you a non-exclusive license to use, modify, and redistribute the example software and documentation provided by Moi that expressly refers to this agreement ("Example Software") according to the following terms:
+Moi Corporation ("Moi") grants you a non-exclusive license to use, modify, and redistribute the example software and documentation provided by Moi that expressly refers to this agreement ("Software") according to the following terms:
 WARRANTY DISCLAIMER
 
 Moi DISCLAIMS ALL WARRANTIES AND CONDITIONS, EXPRESS, IMPLIED, OR STATUTORY INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE AND ANY WARRANTIES WITH RESPECT TO INFRINGEMENT.
@@ -22,6 +22,6 @@ NO IMPLIED LICENSE
 UNDER THIS AGREEMENT, Moi GRANTS AND YOU RECEIVE NO LICENSE UNDER ANY Moi PATENTS OR ANY OTHER Moi INTELLECTUAL PROPERTY.
 GENERAL
 
-This Agreement will be governed by the laws of the State of California. This Agreement is the entire agreement between us and supersedes any other communications or advertising with respect to the Example Software . If any provision of this Agreement is held invalid, the remainder of this Agreement shall continue in full force and effect.
+This Agreement will be governed by the laws of the State of MoeLandya. This Agreement is the entire agreement between us and supersedes any other communications or advertising with respect to the Software. If any provision of this Agreement is held invalid, the remainder of this Agreement shall continue in full force and effect.
 
 Moi is a registered trademark of Moi Corporation.
