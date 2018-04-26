@@ -10,7 +10,7 @@ import vues.*;
  * Définition d'une classe pour les cellules. Cette classe fait encore partie du
  * modèle.
  */
-public class Cellule {
+public class Cellule{
 	/** On conserve un pointeur vers la classe principale du modèle. */
 	private Modele modele;
 
@@ -24,10 +24,13 @@ public class Cellule {
 	/**
 	 * Et voilà pour savoir s'il y a un joueur
 	 */
-	private boolean joueur;
-
+	protected boolean YajoueurC;
+    protected int CordJoueurX, CordJoueurY;
 	private boolean pasCoulee;
-
+	private Joueurs j;
+	
+	
+   
 	public Cellule(Modele modele, int x, int y) {
 		this.modele = modele;
 		this.etat = 2;
@@ -35,8 +38,26 @@ public class Cellule {
 		this.y = y;
 		this.pasCoulee = true;
 		this.prochainEtat = 2;
+		this.YajoueurC=false;
+		}
+	 /*   this.CordJoueurX=-1;
+		this.CordJoueurY=-1; */
+	
+	/* public void InitJoueur () {
+		this.CordJoueurX= 1;
+		this.CordJoueurY= 1;
+		this.YajoueurC=true;
+	}*/
+	public int NextCellule(Cellule c, char s) {
+		
+		if(s=='g' && c.CordJoueurX>0) {
+		return c.CordJoueurX-1;
+		}
+		else {
+			return -1;
+		}
 	}
-
+	
 	/**
 	 * Le passage à la génération suivante se fait en deux étapes : - D'abord on
 	 * calcule pour chaque cellule ce que sera sont état à la génération
@@ -46,6 +67,7 @@ public class Cellule {
 	 * d'une cellule pollue la décision prise pour une cellule voisine.
 	 */
 	private int prochainEtat;
+	
 
 	// protected void evalue() {
 	// if (this.etat != 0 && this.safe) {
@@ -83,6 +105,9 @@ public class Cellule {
 	/** Un test à l'usage des autres classes (sera utilisé par la vue). */
 	public int etat() {
 		return etat;
+	}
+	public boolean Yatiljoueur() {
+		return YajoueurC;
 	}
 }
 
