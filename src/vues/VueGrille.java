@@ -3,8 +3,15 @@ package vues;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import javax.swing.ImageIcon;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.io.IOException;
+import java.awt.Image;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 
 import modele.*;
 import main.*;
@@ -77,16 +84,28 @@ public class VueGrille extends JPanel implements Observer {
 	 * laquelle elle est interne, d'où le type [CModele.Cellule]. Ceci serait
 	 * impossible si [Cellule] était déclarée privée dans [CModele].
 	 */
+    
 	private void paint(Graphics g, Cellule c, int x, int y) {
 		/** Sélection d'une couleur. */
+		
 		if (c.etat() == 0) {
-			g.setColor(Color.BLACK);
+			g.setColor(Color.cyan);
 		} else if (c.etat() == 1){
 			g.setColor(Color.BLUE);
 		} else {
-			g.setColor(Color.WHITE);
+			g.setColor(Color.gray);
 		}
 		/** Coloration d'un rectangle. */
+		
 		g.fillRect(x, y, TAILLE, TAILLE);
+		
+		if(c.Yatiljoueur()==true) {
+		
+		g.setColor(Color.RED);    
+		g.fillRect(x+TAILLE/3, y+TAILLE/3, TAILLE/3, TAILLE/3);
+		g.drawRect(x+TAILLE/3, y+TAILLE/3, TAILLE/3, TAILLE/3);
+		
+		}
 	}
+	
 }
