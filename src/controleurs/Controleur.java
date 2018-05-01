@@ -22,12 +22,15 @@ public class Controleur implements ActionListener {
      * englobante [VueCommandes].
      */
     Modele modele;
-    public Controleur(Modele modele) { this.modele = modele; }
+    public Controleur(Modele modele) { this.modele = modele;}
     /**
      * Action effectuée à réception d'un événement : appeler la
      * méthode [avance] du modèle.
      */
     public void actionPerformed(ActionEvent e) {
+    	for (Joueur j : this.modele.joueurs()) {
+    		modele.tour();
+    	}
         modele.avance();
     }
 }

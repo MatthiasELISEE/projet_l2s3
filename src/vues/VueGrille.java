@@ -37,9 +37,8 @@ public class VueGrille extends JPanel implements Observer {
 		/** On enregistre la vue [this] en tant qu'observateur de [modele]. */
 		modele.addObserver(this);
 		/**
-		 * Définition et application d'une taille fixe pour cette zone de
-		 * l'interface, calculée en fonction du nombre de cellules et de la
-		 * taille d'affichage.
+		 * Définition et application d'une taille fixe pour cette zone de l'interface,
+		 * calculée en fonction du nombre de cellules et de la taille d'affichage.
 		 */
 		Dimension dim = new Dimension(TAILLE * Modele.LARGEUR, TAILLE * Modele.HAUTEUR);
 		this.setPreferredSize(dim);
@@ -47,8 +46,8 @@ public class VueGrille extends JPanel implements Observer {
 
 	/**
 	 * L'interface [Observer] demande de fournir une méthode [update], qui sera
-	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici
-	 * on se content de réafficher toute la grille avec la méthode prédéfinie
+	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici on
+	 * se content de réafficher toute la grille avec la méthode prédéfinie
 	 * [repaint].
 	 */
 	public void update() {
@@ -56,12 +55,12 @@ public class VueGrille extends JPanel implements Observer {
 	}
 
 	/**
-	 * Les éléments graphiques comme [JPanel] possèdent une méthode
-	 * [paintComponent] qui définit l'action à accomplir pour afficher cet
-	 * élément. On la redéfinit ici pour lui confier l'affichage des cellules.
+	 * Les éléments graphiques comme [JPanel] possèdent une méthode [paintComponent]
+	 * qui définit l'action à accomplir pour afficher cet élément. On la redéfinit
+	 * ici pour lui confier l'affichage des cellules.
 	 *
-	 * La classe [Graphics] regroupe les éléments de style sur le dessin, comme
-	 * la couleur actuelle.
+	 * La classe [Graphics] regroupe les éléments de style sur le dessin, comme la
+	 * couleur actuelle.
 	 */
 	public void paintComponent(Graphics g) {
 		super.repaint();
@@ -69,9 +68,8 @@ public class VueGrille extends JPanel implements Observer {
 		for (int i = 1; i <= Modele.LARGEUR; i++) {
 			for (int j = 1; j <= Modele.HAUTEUR; j++) {
 				/**
-				 * ... Appeler une fonction d'affichage auxiliaire. On lui
-				 * fournit les informations de dessin [g] et les coordonnées du
-				 * coin en haut à gauche.
+				 * ... Appeler une fonction d'affichage auxiliaire. On lui fournit les
+				 * informations de dessin [g] et les coordonnées du coin en haut à gauche.
 				 */
 				paint(g, modele.getCellule(i, j), (i - 1) * TAILLE, (j - 1) * TAILLE);
 			}
@@ -79,33 +77,32 @@ public class VueGrille extends JPanel implements Observer {
 	}
 
 	/**
-	 * Fonction auxiliaire de dessin d'une cellule. Ici, la classe [Cellule] ne
-	 * peut être désignée que par l'intermédiaire de la classe [CModele] à
-	 * laquelle elle est interne, d'où le type [CModele.Cellule]. Ceci serait
-	 * impossible si [Cellule] était déclarée privée dans [CModele].
+	 * Fonction auxiliaire de dessin d'une cellule. Ici, la classe [Cellule] ne peut
+	 * être désignée que par l'intermédiaire de la classe [CModele] à laquelle elle
+	 * est interne, d'où le type [CModele.Cellule]. Ceci serait impossible si
+	 * [Cellule] était déclarée privée dans [CModele].
 	 */
-    
+
 	private void paint(Graphics g, Cellule c, int x, int y) {
 		/** Sélection d'une couleur. */
-		
-		if (c.etat() == 0) {
+
+		if (c.etat == 0) {
 			g.setColor(Color.cyan);
-		} else if (c.etat() == 1){
+		} else if (c.etat == 1) {
 			g.setColor(Color.BLUE);
 		} else {
 			g.setColor(Color.gray);
 		}
 		/** Coloration d'un rectangle. */
-		
+
 		g.fillRect(x, y, TAILLE, TAILLE);
 		
-		if(c.Yatiljoueur()==true) {
-		
-		g.setColor(Color.RED);    
-		g.fillRect(x+TAILLE/3, y+TAILLE/3, TAILLE/3, TAILLE/3);
-		g.drawRect(x+TAILLE/3, y+TAILLE/3, TAILLE/3, TAILLE/3);
-		
+		if (c.Yatiljoueur()) {
+			// TODO : changer la couleur si le joueurTour se trouve à c
+			g.setColor(Color.RED);
+			g.fillRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
+			g.drawRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
 		}
 	}
-	
+
 }

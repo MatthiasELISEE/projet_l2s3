@@ -15,9 +15,10 @@ public class Joueur {
 	private int y;
 	private Modele modele;
 	
-	public Joueur(int x, int y) {
+	public Joueur(Modele modele, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.modele = modele;
 	}
 	
 	public Joueur() {
@@ -29,11 +30,11 @@ public class Joueur {
 		this.y = 5;
 	}
 
-	public int CordJX() {
+	public int x() {
 		return this.x;
 	}
 
-	public int CordJY() {
+	public int y() {
 		return this.y;
 	}
 
@@ -44,36 +45,37 @@ public class Joueur {
 			return false;
 	}
 
-	public void deplacement(Cellule[][] cellules) {
+	public void action() {
+	
+		Cellule[][] cellules = this.modele.cellules;
 		String str;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour bas, h pour haut :");
 		str = sc.nextLine();
-		;
 		char carac = str.charAt(0);
-
+		// TODO : il faut qu'on puisse choisir autre chose que les déplacements 
 		if (carac == 'g' && this.x - 1 != 0) {
-			cellules[this.x][this.y].YajoueurC = false;
-			cellules[this.x - 1][this.y].YajoueurC = true;
+			cellules[this.x][this.y].retirerJoueur(this);
+			cellules[this.x - 1][this.y].ajouterJoueur(this);
 			this.x = this.x - 1;
 			System.out.println("tu es all�e a gauche");
 		}
 		if (carac == 'd' && this.x + 1 != 10) {
-			cellules[this.x][this.y].YajoueurC = false;
-			cellules[this.x + 1][this.y].YajoueurC = true;
+			cellules[this.x][this.y].retirerJoueur(this);
+			cellules[this.x + 1][this.y].ajouterJoueur(this);
 			this.x = this.x + 1;
 			System.out.println("tu es all�e a droite");
 		}
 		if (carac == 'h' && this.y - 1 != 0) {
 
-			cellules[this.x][this.y].YajoueurC = false;
-			cellules[this.x][this.y - 1].YajoueurC = true;
+			cellules[this.x][this.y].retirerJoueur(this);;
+			cellules[this.x][this.y - 1].ajouterJoueur(this);
 			this.y = this.y - 1;
 			System.out.println("tu es all�e en haut");
 		}
 		if (carac == 'b' && this.y + 1 != 10) {
-			cellules[this.x][this.y].YajoueurC = false;
-			cellules[this.x][this.y + 1].YajoueurC = true;
+			cellules[this.x][this.y].retirerJoueur(this);
+			cellules[this.x][this.y + 1].ajouterJoueur(this);
 
 			this.y = this.y + 1;
 			System.out.println("tu es all�e en bas");
