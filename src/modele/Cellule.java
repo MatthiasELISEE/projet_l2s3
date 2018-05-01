@@ -27,7 +27,7 @@ public class Cellule{
 	protected boolean YajoueurC;
     protected int CordJoueurX, CordJoueurY;
 	private boolean pasCoulee;
-	private Joueurs j;
+	private Joueur j;
 	
 	
    

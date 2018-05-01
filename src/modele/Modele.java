@@ -14,8 +14,8 @@ public class Modele extends Observable {
 	/** On fixe la taille de la grille. */
 	public static final int HAUTEUR = 10, LARGEUR = 10;
 	/** On stocke un tableau de cellules. */
-	private Cellule[][] cellules;
-	private Joueurs g;
+	Cellule[][] cellules;
+	private Joueur g;
 	private int killedZones;
 	private double chancesOfGettingKilled = 0.05;
 	
@@ -27,7 +27,7 @@ public class Modele extends Observable {
 		 */
 		
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
-		g = new Joueurs(2,2);
+		g = new Joueur(2,2);
 		
 		for (int i = 0; i < LARGEUR + 2; i++) {
 			for (int j = 0; j < HAUTEUR + 2; j++) {
@@ -35,7 +35,6 @@ public class Modele extends Observable {
 				if(g.ExisteJoueur(i, j)==true) {
 					cellules[i][j].YajoueurC=true;
 				}
-				
 			}
 		}
 		init();
@@ -70,7 +69,7 @@ public class Modele extends Observable {
 		 * applique les évolutions qui ont été calculées.
 		 */
       
-		g.deplacement(g, this.cellules);
+		g.deplacement(this.cellules);
 		
        
 		int nombresDeCool = 0;
