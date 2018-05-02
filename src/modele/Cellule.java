@@ -81,6 +81,10 @@ public class Cellule {
 			return true;
 		}
 	}
+	
+	protected void assecher() {
+		this.etat=0;
+	}
 
 	public String toString() {
 		return (this.modele + " " + this.etat + " " + this.prochainEtat);

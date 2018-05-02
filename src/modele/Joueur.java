@@ -37,6 +37,15 @@ public class Joueur {
 	public int y() {
 		return this.y;
 	}
+	
+	public boolean assecher(int i, int j) {
+		if (Math.abs(i-x)<2 && Math.abs(j-y)<2) {
+			this.modele.cellules[i][j].assecher();
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean ExisteJoueur(int x, int y) {
 		if (this.x == x && this.y == y) {
