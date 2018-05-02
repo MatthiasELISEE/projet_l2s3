@@ -44,16 +44,12 @@ public class Joueur {
 		} else
 			return false;
 	}
-
-	public void action() {
 	
+	public void faitAction(char carac) {
 		Cellule[][] cellules = this.modele.cellules;
-		String str;
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour bas, h pour haut :");
-		str = sc.nextLine();
-		char carac = str.charAt(0);
+		
 		// TODO : il faut qu'on puisse choisir autre chose que les déplacements 
+		
 		if (carac == 'g' && this.x - 1 != 0) {
 			cellules[this.x][this.y].retirerJoueur(this);
 			cellules[this.x - 1][this.y].ajouterJoueur(this);
@@ -80,7 +76,21 @@ public class Joueur {
 			this.y = this.y + 1;
 			System.out.println("tu es all�e en bas");
 		}
-
+	}
+	
+	
+	public void demandeAction() {
+		String str;
+		Scanner sc = new Scanner(System.in);
+		//System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour bas, h pour haut :");
+		System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
+		str = sc.nextLine();
+		char carac = str.charAt(0);
+		
+		this.faitAction(carac);
+		
+		
+		
 		/*
 		 * if(evt.getKeyCode()==evt.VK_LEFT) {
 		 * 

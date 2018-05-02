@@ -108,7 +108,7 @@ public class Modele extends Observable {
 
 	public void tour() {
 		// TODO : 3 actions
-		this.joueurTour().action();
+		this.joueurTour().demandeAction();
 		this.indexJoueurTour++;
 		notifyObservers();
 	}
