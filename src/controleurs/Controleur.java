@@ -34,4 +34,3 @@ public class Controleur implements ActionListener {
         modele.avance();
     }
 }
-
