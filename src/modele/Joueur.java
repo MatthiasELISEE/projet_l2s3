@@ -22,10 +22,6 @@ public class Joueur {
 	}
 	
 	public Joueur() {
-		InitJoueur();
-	}
-
-	public void InitJoueur() {
 		this.x = 5;
 		this.y = 5;
 	}
@@ -97,29 +93,5 @@ public class Joueur {
 		char carac = str.charAt(0);
 		
 		this.faitAction(carac);
-		
-		
-		
-		/*
-		 * if(evt.getKeyCode()==evt.VK_LEFT) {
-		 * 
-		 * }
-		 */
-		// System.out.println("Vous avez saisi : " + str);
-
-		/*
-		 * /*public void keyPressed(KeyEvent evt){ if(evt.getKeyCode()==evt.VK_RIGHT) {
-		 * 
-		 * }
-		 * 
-		 * if(evt.getKeyCode()==evt.VK_LEFT) if(evt.getKeyCode()==evt.VK_DOWN)
-		 * if(evt.getKeyCode()==evt.VK_UP)
-		 * 
-		 * } //on contr�le qu'il ne soit pas trop � droite avant de le d�placer vers la
-		 * droite
-		 * 
-		 * }
-		 */
-
 	}
 }
