@@ -1,24 +1,26 @@
 package modele;
 
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
-import java.awt.*;
-import java.awt.event.*;
-import vues.*;
-import java.util.Scanner;
-//Ceci importe toutes les classes du package java.util
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Joueur {
+	
+	static LinkedList<String> noms = new LinkedList<>(Arrays.asList("Oakley", "Charlie", "Azariah", "Skyler", "Frankie", "Finley"));
+	
 	private int x;
 	private int y;
+	String nom;
 	private Modele modele;
 	
 	public Joueur(Modele modele, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.modele = modele;
+		
+		// Prendre un nom au hasard
+		Collections.shuffle(Joueur.noms);
+		this.nom = Joueur.noms.pop();
 	}
 	
 	public Joueur() {
