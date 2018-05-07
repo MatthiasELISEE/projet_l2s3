@@ -83,7 +83,7 @@ public class Cellule {
 	}
 	
 	protected void assecher() {
-		this.etat=0;
+		this.etat=2;
 	}
 
 	public String toString() {
