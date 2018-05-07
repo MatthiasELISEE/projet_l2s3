@@ -24,8 +24,7 @@ public class Controleur implements ActionListener {
     Modele modele;
     public Controleur(Modele modele) { this.modele = modele;}
     /**
-     * Action effectuée à réception d'un événement : appeler la
-     * méthode [avance] du modèle.
+     * Action effectuée à réception d'un événement
      */
     public void actionPerformed(ActionEvent e) {
     	for (Joueur j : this.modele.joueurs()) {

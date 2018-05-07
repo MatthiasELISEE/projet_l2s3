@@ -10,8 +10,9 @@ import java.util.Scanner;
 
 public class Joueur {
 
+	// Les noms ont été choisis pour être courts et de sexe neutre.
 	static LinkedList<String> noms = new LinkedList<>(
-			Arrays.asList("Oakley", "Charlie", "Azariah", "Skyler", "Frankie", "Finley"));
+			Arrays.asList("Hall", "Brett", "Alex", "Fynn", "Jude", "Dave"));
 
 	private int x;
 	private int y;
@@ -33,12 +34,17 @@ public class Joueur {
 		this.y = 5;
 	}
 
-	public int x() {
+	public int getX() {
 		return this.x;
 	}
 
-	public int y() {
+	public int getY() {
 		return this.y;
+	}
+	
+	public String toString() {
+		return this.nom;
+		//return this.nom + "("+this.x+","+this.y+")";
 	}
 
 	public boolean assecher(int i, int j) {
@@ -61,7 +67,7 @@ public class Joueur {
 		Cellule[][] cellules = this.modele.cellules;
 		// System.err.println("#"+instruction+"#");
 		// System.err.println("#"+(instruction.equals("dh"))+"#");
-		// System.err.println("#"+(this.y - 1 >= 0)+"#");
+		System.err.println("#"+(this.y - 1 >= 0)+"#");
 
 		if (instruction.equals("dg") && this.x - 1 >= 0) {
 			cellules[this.x][this.y].retirerJoueur(this);
@@ -129,12 +135,16 @@ public class Joueur {
 		// this.faitAction(instruction);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("A ton tour, "+this.nom);
+		System.out.println("Choisis une action, "+this.nom);
 		try {
 			String action,direction;
 			do {
-				System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement");
+				System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement, (q)ue dalle");
 				action = br.readLine();
+				if (action.equals("q")) {
+					System.err.println("Patience et longueur de temps valent mieux que force ni que rage");
+					return;
+				}
 				System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
 				direction = br.readLine();
 			} while (!this.faitAction(action+direction));

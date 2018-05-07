@@ -26,6 +26,7 @@ public class Cellule {
 	 * Et voilà pour savoir s'il y a un joueur
 	 */
 	private boolean pasCoulee;
+	private boolean pasAssechee;
 	private ArrayList<Joueur> joueurs;
 
 	public Cellule(Modele modele, int x, int y) {
@@ -34,8 +35,24 @@ public class Cellule {
 		this.x = x;
 		this.y = y;
 		this.pasCoulee = true;
+		this.pasAssechee = true;
 		this.prochainEtat = 2;
 		joueurs = new ArrayList<>(0);
+	}
+	
+	public Cellule(Modele modele, Cellule c) {
+		this.modele = modele;
+		this.etat = c.etat;
+		this.x = c.x;
+		this.y = c.y;
+		this.pasCoulee = c.pasCoulee;
+		this.pasAssechee = c.pasAssechee;
+		this.prochainEtat = c.prochainEtat;
+		joueurs = c.joueurs;
+	}
+	
+	public Cellule(Cellule c) {
+		this(new Modele(c.modele),c);
 	}
 	/*
 	 * this.CordJoueurX=-1; this.CordJoueurY=-1;
@@ -55,6 +72,7 @@ public class Cellule {
 	 */
 	private int prochainEtat;
 
+
 	// protected void evalue() {
 	// if (this.etat != 0 && this.safe) {
 	// this.prochainEtat = this.etat + this.modele.shouldWeKill(x,y);
@@ -63,7 +81,7 @@ public class Cellule {
 	// }
 
 	protected void evolue() {
-		if (this.pasCoulee) {
+		if (this.pasCoulee && this.pasAssechee) {
 			prochainEtat = etat;
 		} else {
 			etat = prochainEtat;
@@ -83,7 +101,8 @@ public class Cellule {
 	}
 	
 	protected void assecher() {
-		this.etat=2;
+		this.prochainEtat=2;
+		this.pasAssechee = false;
 	}
 
 	public String toString() {
@@ -100,5 +119,21 @@ public class Cellule {
 
 	public void retirerJoueur(Joueur joueur) {
 		joueurs.remove(joueur);
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public boolean estCoulee() {
+		return this.etat==0;
+	}
+	
+	public ArrayList<Joueur> getJoueurs() {
+		return this.joueurs;
 	}
 }

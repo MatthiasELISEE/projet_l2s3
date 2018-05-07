@@ -29,7 +29,7 @@ public class VueGrille extends JPanel implements Observer {
 	/** On maintient une référence vers le modèle. */
 	private Modele modele;
 	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-	private final static int TAILLE = 100;
+	private final static int TAILLE = 50;
 
 	/** Constructeur. */
 	public VueGrille(Modele modele) {
@@ -71,7 +71,7 @@ public class VueGrille extends JPanel implements Observer {
 				 * ... Appeler une fonction d'affichage auxiliaire. On lui fournit les
 				 * informations de dessin [g] et les coordonnées du coin en haut à gauche.
 				 */
-				paint(g, modele.getCellule(i, j), (i - 1) * TAILLE, (j - 1) * TAILLE);
+				paint(g, modele.getCellule(i-1, j-1), (i - 1) * TAILLE, (j - 1) * TAILLE);
 			}
 		}
 	}
@@ -98,10 +98,18 @@ public class VueGrille extends JPanel implements Observer {
 		g.fillRect(x, y, TAILLE, TAILLE);
 		
 		if (c.Yatiljoueur()) {
-			// TODO : changer la couleur si le joueurTour se trouve à c
 			g.setColor(Color.RED);
 			g.fillRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
 			g.drawRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
+			g.setColor(Color.BLACK);
+			
+			int X = x + TAILLE / 3;
+			int Y = y + TAILLE / 3;
+			for (Joueur j : c.getJoueurs()) {
+				g.drawString(j.toString(), X, Y);
+				Y+=10;
+			}
+			
 		}
 	}
 

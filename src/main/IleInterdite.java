@@ -35,7 +35,7 @@ public class IleInterdite {
      * objectif est de faire le lien entre modèle et utilisateur).
      */
     public static void main(String[] args) {
-        Modele modele = new Modele();
+        Modele modele = new Modele(4);
         Vue vue = new Vue(modele);
     }
 }

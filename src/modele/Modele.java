@@ -1,6 +1,9 @@
 package modele;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
 
 import main.*;
 
@@ -42,12 +45,12 @@ public class Modele extends Observable {
 
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
 		this.joueurs = new ArrayList<>();
-		
+
 		for (int i = 0; i < LARGEUR + 2; i++) {
 			for (int j = 0; j < HAUTEUR + 2; j++) {
 				cellules[i][j] = new Cellule(this, i, j);
-				if (i==2 && j==2) {
-					Joueur joueur = new Joueur(this,2,2);
+				if (i == 2 && j == 2) {
+					Joueur joueur = new Joueur(this, 2, 2);
 					cellules[2][2].ajouterJoueur(joueur);
 					this.joueurs.add(joueur);
 				}
@@ -56,24 +59,94 @@ public class Modele extends Observable {
 		init();
 	}
 
+	public Modele(int nombreDeJoueurs) {
+		/**
+		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
+		 * chaque côté, dont les cellules n'évolueront pas.
+		 */
+
+		// cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
+		// g = new Joueur(2,2);
+		//
+		// for (int i = 0; i < LARGEUR + 2; i++) {
+		// for (int j = 0; j < HAUTEUR + 2; j++) {
+		// cellules[i][j] = new Cellule(this, i, j);
+		// if(g.ExisteJoueur(i, j)==true) {
+		// cellules[i][j].YajoueurC=true;
+		// }
+		// }
+		// }
+
+		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
+		this.joueurs = new ArrayList<>(nombreDeJoueurs);
+
+		for (int i = 0; i < LARGEUR + 2; i++) {
+			for (int j = 0; j < HAUTEUR + 2; j++) {
+				cellules[i][j] = new Cellule(this, i, j);
+			}
+		}
+
+		init();
+		
+		Random random = new Random();
+		for (int k= 0; k < nombreDeJoueurs; k++) {
+			int i;
+			int j;
+			do {
+				i = random.nextInt(LARGEUR);
+				j = random.nextInt(HAUTEUR);
+			} while (cellules[i][j].estCoulee());
+			Joueur joueur = new Joueur(this, i, j);
+			this.cellules[i][j].ajouterJoueur(joueur);
+			this.joueurs.add(joueur);
+		}
+		
+		
+//		ArrayList<ArrayList<Cellule>> tmp = new ArrayList<>(LARGEUR);
+//		for (int i = 0; i < LARGEUR) {
+//			i = new ArrayList<Cellule>(Arrays.asList(cellules[]))
+//		}
+//		
+//		
+//		for (int k = 0; k < nombreDeJoueurs;) {
+//			Cellule cell;
+//			Collections.shuffle(tmp);
+//			ArrayList<Cellule> tmpi = tmp.get(0);
+//			Collections.shuffle(tmpi);
+//			cell = tmpi.get(0);
+//			
+//			Joueur joueur = new Joueur(this, cell.x(), cell.y());
+//			this.cellules[cell.x()][cell.y()].ajouterJoueur(joueur);
+//			this.joueurs.add(joueur);
+//		}
+	}
+
+	public Modele(Modele modele) {
+		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
+		this.joueurs = new ArrayList<>(modele.joueurs);
+		
+		for (int i = 0; i <= LARGEUR; i++) {
+			for (int j = 0; j <= HAUTEUR; j++) {
+				cellules[i][j] = new Cellule(this,modele.cellules[i][j]);
+			}
+		}
+		
+		this.indexJoueurTour = modele.indexJoueurTour;
+	}
+
 	/**
 	 * Initialisation aléatoire des cellules, exceptées celle des bords qui ont été
 	 * ajoutés.
 	 */
 	public void init() {
-
-		for (int i = 1; i <= LARGEUR; i++) {
-			for (int j = 1; j <= HAUTEUR; j++) {
+		for (int i = 0; i <= LARGEUR; i++) {
+			for (int j = 0; j <= HAUTEUR; j++) {
 				if (Math.random() < chancesOfGettingKilled) {
 					cellules[i][j].etat = 1;
 				}
 			}
 		}
 	}
-
-	/**
-	 * Calcul de la génération suivante.
-	 */
 
 	public void avance() {
 		/**
@@ -90,17 +163,17 @@ public class Modele extends Observable {
 				nombresDeCool++;
 			}
 		}
-		
-		for (int i = 1; i < LARGEUR + 1; i++) {
-			for (int j = 1; j < HAUTEUR + 1; j++) {
+
+		for (int i = 0; i < LARGEUR; i++) {
+			for (int j = 0; j < HAUTEUR; j++) {
 				// System.out.println(cellules[i][j]+" "+i+" "+j);
 				cellules[i][j].evolue();
 				// System.out.println(cellules[i][j]+" "+i+" "+j);
 			}
 		}
-		
+
 		this.indexJoueurTour = 0;
-		
+
 		/**
 		 * Pour finir, le modèle ayant changé, on signale aux observateurs qu'ils
 		 * doivent se mettre à jour.
@@ -109,16 +182,17 @@ public class Modele extends Observable {
 	}
 
 	public void tour() {
-		// TODO : 3 actions
-		this.joueurTour().demandeAction();
+		for (int k = 0; k < 3; k++) {
+			this.joueurTour().demandeAction();
+		}
 		this.indexJoueurTour++;
 		notifyObservers();
 	}
-	
+
 	public Joueur joueurTour() {
 		return this.joueurs.get(indexJoueurTour);
 	}
-	
+
 	public ArrayList<Joueur> joueurs() {
 		return joueurs;
 	}
