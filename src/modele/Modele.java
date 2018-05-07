@@ -99,6 +99,8 @@ public class Modele extends Observable {
 			}
 		}
 		
+		this.indexJoueurTour = 0;
+		
 		/**
 		 * Pour finir, le modèle ayant changé, on signale aux observateurs qu'ils
 		 * doivent se mettre à jour.

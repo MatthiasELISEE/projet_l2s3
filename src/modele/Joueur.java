@@ -1,28 +1,33 @@
 package modele;
 
 import java.util.LinkedList;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class Joueur {
-	
-	static LinkedList<String> noms = new LinkedList<>(Arrays.asList("Oakley", "Charlie", "Azariah", "Skyler", "Frankie", "Finley"));
-	
+
+	static LinkedList<String> noms = new LinkedList<>(
+			Arrays.asList("Oakley", "Charlie", "Azariah", "Skyler", "Frankie", "Finley"));
+
 	private int x;
 	private int y;
 	String nom;
 	private Modele modele;
-	
+
 	public Joueur(Modele modele, int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.modele = modele;
-		
+
 		// Prendre un nom au hasard
 		Collections.shuffle(Joueur.noms);
 		this.nom = Joueur.noms.pop();
 	}
-	
+
 	public Joueur() {
 		this.x = 5;
 		this.y = 5;
@@ -35,9 +40,9 @@ public class Joueur {
 	public int y() {
 		return this.y;
 	}
-	
+
 	public boolean assecher(int i, int j) {
-		if (Math.abs(i-x)<2 && Math.abs(j-y)<2) {
+		if (Math.abs(i - x) < 2 && Math.abs(j - y) < 2) {
 			this.modele.cellules[i][j].assecher();
 			return true;
 		} else {
@@ -51,49 +56,90 @@ public class Joueur {
 		} else
 			return false;
 	}
-	
-	public void faitAction(char carac) {
+
+	boolean faitAction(String instruction) {
 		Cellule[][] cellules = this.modele.cellules;
-		
-		// TODO : il faut qu'on puisse choisir autre chose que les déplacements 
-		
-		if (carac == 'g' && this.x - 1 != 0) {
+		// System.err.println("#"+instruction+"#");
+		// System.err.println("#"+(instruction.equals("dh"))+"#");
+		// System.err.println("#"+(this.y - 1 >= 0)+"#");
+
+		if (instruction.equals("dg") && this.x - 1 >= 0) {
 			cellules[this.x][this.y].retirerJoueur(this);
 			cellules[this.x - 1][this.y].ajouterJoueur(this);
 			this.x = this.x - 1;
-			System.out.println("tu es all�e a gauche");
-		}
-		if (carac == 'd' && this.x + 1 != 10) {
+			System.out.println("tu es allé(e) à gauche");
+		} else if (instruction.equals("dd") && this.x + 1 < Modele.LARGEUR) {
 			cellules[this.x][this.y].retirerJoueur(this);
 			cellules[this.x + 1][this.y].ajouterJoueur(this);
 			this.x = this.x + 1;
-			System.out.println("tu es all�e a droite");
-		}
-		if (carac == 'h' && this.y - 1 != 0) {
-
-			cellules[this.x][this.y].retirerJoueur(this);;
+			System.out.println("tu es allé(e) à droite");
+		} else if (instruction.equals("dh") && this.y - 1 >= 0) {
+			System.err.println("coilà");
+			cellules[this.x][this.y].retirerJoueur(this);
+			;
 			cellules[this.x][this.y - 1].ajouterJoueur(this);
 			this.y = this.y - 1;
-			System.out.println("tu es all�e en haut");
-		}
-		if (carac == 'b' && this.y + 1 != 10) {
+			System.out.println("tu es allé(e) en haut");
+		} else if (instruction.equals("db") && this.y + 1 < Modele.HAUTEUR) {
 			cellules[this.x][this.y].retirerJoueur(this);
 			cellules[this.x][this.y + 1].ajouterJoueur(this);
-
 			this.y = this.y + 1;
-			System.out.println("tu es all�e en bas");
+			System.out.println("tu es allé(e) en bas");
 		}
-	}
-	
-	
-	public void demandeAction() {
-		String str;
-		Scanner sc = new Scanner(System.in);
-		//System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour bas, h pour haut :");
-		System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
-		str = sc.nextLine();
-		char carac = str.charAt(0);
+
+		else if (instruction.equals("ag") && this.x - 1 >= 0) {
+			this.assecher(this.x - 1, this.y);
+			System.out.println("tu as asséché à gauche");
+		} else if (instruction.equals("ad") && this.x + 1 < Modele.LARGEUR) {
+			this.assecher(this.x + 1, this.y);
+			System.out.println("tu as asséché à droite");
+		} else if (instruction.equals("ah") && this.y - 1 >= 0) {
+			this.assecher(this.x, this.y - 1);
+			System.out.println("tu as asséché en haut");
+		} else if (instruction.equals("ab") && this.y + 1 < Modele.HAUTEUR) {
+			this.assecher(this.x, this.y + 1);
+			System.out.println("tu as asséché en bas");
+		}
+
+		else {
+			System.err.println("instructions incorrectes");
+			return false;
+		}
 		
-		this.faitAction(carac);
+		return true;
+	}
+
+	public void demandeAction() {
+		// String str;
+		// Scanner sc = new Scanner(System.in);
+		// //System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour
+		// bas, h pour haut :");
+		// System.out.println("A ton tour, "+this.nom);
+		// System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement");
+		// str = "";
+		// while (sc.hasNextLine()) {
+		// str = sc.nextLine();
+		// }
+		// char carac = str.charAt(0);
+		// System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
+		// str = sc.nextLine();
+		// String instruction = Character.toString(carac) +
+		// Character.toString(str.charAt(0));
+		//
+		// this.faitAction(instruction);
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("A ton tour, "+this.nom);
+		try {
+			String action,direction;
+			do {
+				System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement");
+				action = br.readLine();
+				System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
+				direction = br.readLine();
+			} while (!this.faitAction(action+direction));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
