@@ -2,6 +2,9 @@ package controleurs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import modele.*;
 
@@ -27,6 +30,7 @@ public class Controleur implements ActionListener {
      * Action effectuée à la réception d'un événement
      */
     public void actionPerformed(ActionEvent e) {
+        
     	for (Joueur j : this.modele.joueurs()) {
     		modele.tour();
     	}

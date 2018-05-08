@@ -1,5 +1,8 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import modele.*;
@@ -30,7 +33,29 @@ public class IleInterdite {
      * objectif est de faire le lien entre mod√®le et utilisateur).
      */
     public static void main(String[] args) {
-        Modele modele = new Modele(2);
+    	
+    	System.out.println("Bienvenue sur l'Œle interdite !");
+    	
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.print("Nombre de joueurs ? ");
+		
+		Modele modele = null;
+		
+		boolean success = false;
+		while (!success) {
+	        try{
+	            modele = new Modele(Integer.parseInt(br.readLine()));
+	            success=true;
+	        } catch (IndexOutOfBoundsException e) {
+	            System.err.print("Nombre de joueur trop grand !");
+			}catch(NumberFormatException nfe){
+	            System.err.print("Mais non ! Entrez un chiffre !");
+	        } catch (IOException e1) {
+				e1.printStackTrace();
+	        }
+		}
         Vue vue = new Vue(modele);
+        System.out.println("Cliquez sur tour suivant !");
     }
 }

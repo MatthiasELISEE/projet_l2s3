@@ -7,31 +7,31 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class Joueur {
 
 	// Les noms ont été choisis pour être courts et de sexe neutre.
 	static LinkedList<String> noms = new LinkedList<>(
 			Arrays.asList("Hall", "Brett", "Alex", "Fynn", "Jude", "Dave"));
-
+	
 	private int x;
 	private int y;
 	String nom;
 	private Modele modele;
 
-	public Joueur(Modele modele, int x, int y) {
+	public Joueur(Modele modele, int x, int y) throws NoSuchElementException{
 		this.x = x;
 		this.y = y;
 		this.modele = modele;
 
 		// Prendre un nom au hasard
 		Collections.shuffle(Joueur.noms);
-		this.nom = Joueur.noms.pop();
-	}
-
-	public Joueur() {
-		this.x = 5;
-		this.y = 5;
+		try {
+			this.nom = Joueur.noms.pop();
+		} catch (NoSuchElementException n) {
+			throw new NoSuchElementException("Plus de noms disponibles !");
+		}
 	}
 
 	public int getX() {

@@ -1,5 +1,7 @@
 package modele;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -62,23 +64,16 @@ public class Modele extends Observable {
 		init();
 	}
 
-	public Modele(int nombreDeJoueurs) {
+	public Modele(int nombreDeJoueurs) throws IndexOutOfBoundsException {
 		/**
 		 * Pour éviter les probl�mes aux bords, on ajoute une ligne et une colonne de
 		 * chaque côté, dont les cellules n'évolueront pas.
 		 */
-
-		// cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
-		// g = new Joueur(2,2);
-		//
-		// for (int i = 0; i < LARGEUR + 2; i++) {
-		// for (int j = 0; j < HAUTEUR + 2; j++) {
-		// cellules[i][j] = new Cellule(this, i, j);
-		// if(g.ExisteJoueur(i, j)==true) {
-		// cellules[i][j].YajoueurC=true;
 		// }
-		// }
-		// }
+		
+		if (nombreDeJoueurs > Joueur.noms.size()) {
+			throw new IndexOutOfBoundsException();
+		}
 
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
 		this.joueurs = new ArrayList<>(nombreDeJoueurs);
@@ -112,6 +107,8 @@ public class Modele extends Observable {
 			}
 		}
 	}
+	
+	
 
 	public Modele(Modele modele) {
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
