@@ -3,18 +3,12 @@ package vues;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import javax.swing.ImageIcon;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.io.IOException;
 import java.awt.Image;
 import java.io.File;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import modele.*;
 import main.*;
@@ -25,11 +19,11 @@ import main.*;
  * JPanel est une classe d'éléments graphiques, pouvant comme JFrame contenir
  * d'autres éléments graphi ques.
  *
- * Cette vue va être un observateur du modèle et sera mise à jour à chaque
+ * Cette vue va étre un observateur du modéle et sera mise é jour é chaque
  * nouvelle génération des cellules.
  */
 public class VueGrille extends JPanel implements Observer {
-	/** On maintient une référence vers le modèle. */
+	/** On maintient une référence vers le modéle. */
 	private Image img;
 	private Modele modele;
 	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
@@ -50,7 +44,7 @@ public class VueGrille extends JPanel implements Observer {
 
 	/**
 	 * L'interface [Observer] demande de fournir une méthode [update], qui sera
-	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici on
+	 * appelée lorsque la vue sera notifiée d'un changement dans le modéle. Ici on
 	 * se content de réafficher toute la grille avec la méthode prédéfinie
 	 * [repaint].
 	 */
@@ -59,8 +53,8 @@ public class VueGrille extends JPanel implements Observer {
 	}
 
 	/**
-	 * Les éléments graphiques comme [JPanel] possèdent une méthode [paintComponent]
-	 * qui définit l'action à accomplir pour afficher cet élément. On la redéfinit
+	 * Les éléments graphiques comme [JPanel] possédent une méthode [paintComponent]
+	 * qui définit l'action é accomplir pour afficher cet élément. On la redéfinit
 	 * ici pour lui confier l'affichage des cellules.
 	 *
 	 * La classe [Graphics] regroupe les éléments de style sur le dessin, comme la
@@ -73,7 +67,7 @@ public class VueGrille extends JPanel implements Observer {
 			for (int j = 1; j <= Modele.HAUTEUR; j++) {
 				/**
 				 * ... Appeler une fonction d'affichage auxiliaire. On lui fournit les
-				 * informations de dessin [g] et les coordonnées du coin en haut à gauche.
+				 * informations de dessin [g] et les coordonnées du coin en haut é gauche.
 				 */
 				paint(g, modele.getCellule(i - 1, j - 1), (i - 1) * TAILLE, (j - 1) * TAILLE);
 			}
@@ -82,8 +76,8 @@ public class VueGrille extends JPanel implements Observer {
 
 	/**
 	 * Fonction auxiliaire de dessin d'une cellule. Ici, la classe [Cellule] ne peut
-	 * être désignée que par l'intermédiaire de la classe [CModele] à laquelle elle
-	 * est interne, d'où le type [CModele.Cellule]. Ceci serait impossible si
+	 * étre désignée que par l'intermédiaire de la classe [CModele] é laquelle elle
+	 * est interne, d'oé le type [CModele.Cellule]. Ceci serait impossible si
 	 * [Cellule] était déclarée privée dans [CModele].
 	 */
 
@@ -112,6 +106,7 @@ public class VueGrille extends JPanel implements Observer {
 			g.drawImage(img, 0, 0, TAILLE, TAILLE, this);
 			
 		}
+		
 		if (c.Yatiljoueur()) {
 			g.setColor(Color.RED);
 			g.fillRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);

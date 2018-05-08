@@ -23,6 +23,9 @@ public class Modele extends Observable {
 	private ArrayList<Joueur> joueurs;
 	private int indexJoueurTour;
 	private double chancesOfGettingKilled = 0.05;
+	
+	// Décide si les joueurs sont placés n'importe où ou sur la case départ
+	static boolean randomInitOfPlayers = false;
 
 	/** Construction : on initialise un tableau de cellules. */
 	public Modele() {
@@ -88,37 +91,26 @@ public class Modele extends Observable {
 
 		init();
 		
-		Random random = new Random();
-		for (int k= 0; k < nombreDeJoueurs; k++) {
-			int i;
-			int j;
-			do {
-				i = random.nextInt(LARGEUR);
-				j = random.nextInt(HAUTEUR);
-			} while (cellules[i][j].estCoulee());
-			Joueur joueur = new Joueur(this, i, j);
-			this.cellules[i][j].ajouterJoueur(joueur);
-			this.joueurs.add(joueur);
+		if (randomInitOfPlayers) {
+			Random random = new Random();
+			for (int k= 0; k < nombreDeJoueurs; k++) {
+				int i;
+				int j;
+				do {
+					i = random.nextInt(LARGEUR);
+					j = random.nextInt(HAUTEUR);
+				} while (cellules[i][j].estCoulee());
+				Joueur joueur = new Joueur(this, i, j);
+				this.cellules[i][j].ajouterJoueur(joueur);
+				this.joueurs.add(joueur);
+			}
+		} else {
+			for (int k= 0; k < nombreDeJoueurs; k++) {
+				Joueur joueur = new Joueur(this, 0, 0);
+				this.cellules[0][0].ajouterJoueur(joueur);
+				this.joueurs.add(joueur);
+			}
 		}
-		
-		
-//		ArrayList<ArrayList<Cellule>> tmp = new ArrayList<>(LARGEUR);
-//		for (int i = 0; i < LARGEUR) {
-//			i = new ArrayList<Cellule>(Arrays.asList(cellules[]))
-//		}
-//		
-//		
-//		for (int k = 0; k < nombreDeJoueurs;) {
-//			Cellule cell;
-//			Collections.shuffle(tmp);
-//			ArrayList<Cellule> tmpi = tmp.get(0);
-//			Collections.shuffle(tmpi);
-//			cell = tmpi.get(0);
-//			
-//			Joueur joueur = new Joueur(this, cell.x(), cell.y());
-//			this.cellules[cell.x()][cell.y()].ajouterJoueur(joueur);
-//			this.joueurs.add(joueur);
-//		}
 	}
 
 	public Modele(Modele modele) {
