@@ -80,9 +80,7 @@ public class Joueur {
 			this.x = this.x + 1;
 			System.out.println("tu es allé(e) à droite");
 		} else if (instruction.equals("dh") && this.y - 1 >= 0) {
-			System.err.println("coilà");
 			cellules[this.x][this.y].retirerJoueur(this);
-			;
 			cellules[this.x][this.y - 1].ajouterJoueur(this);
 			this.y = this.y - 1;
 			System.out.println("tu es allé(e) en haut");

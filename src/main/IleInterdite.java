@@ -21,11 +21,6 @@ import vues.*;
  * Voici une manière sommaire de les recoder.
  */
 
-
-/**
- * Nous allons commencer à construire notre application, en voici la classe
- * principale.
- */
 public class IleInterdite {
     /**
      * L'amorçage est fait en créant le modèle et la vue, par un simple appel
@@ -35,8 +30,7 @@ public class IleInterdite {
      * objectif est de faire le lien entre modèle et utilisateur).
      */
     public static void main(String[] args) {
-        Modele modele = new Modele(4);
+        Modele modele = new Modele(2);
         Vue vue = new Vue(modele);
     }
 }
-/** Fin de la classe principale. */

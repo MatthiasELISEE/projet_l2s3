@@ -34,7 +34,7 @@ public class Vue {
 	public Vue(Modele modele) {
 		/** Définition de la fenêtre principale. */
 		frame = new JFrame();
-		frame.setTitle("Jeu de la vie de Conway");
+		frame.setTitle("L'Ile interdite : plus �a coule moins c'est cool");
 		/**
 		 * On précise un mode pour disposer les différents éléments à
 		 * l'intérieur de la fenêtre. Quelques possibilités sont : -

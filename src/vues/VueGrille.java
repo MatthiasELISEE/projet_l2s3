@@ -44,12 +44,12 @@ public class VueGrille extends JPanel implements Observer {
 
 	/**
 	 * L'interface [Observer] demande de fournir une méthode [update], qui sera
-	 * appelée lorsque la vue sera notifiée d'un changement dans le modéle. Ici on
+	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici on
 	 * se content de réafficher toute la grille avec la méthode prédéfinie
 	 * [repaint].
 	 */
 	public void update() {
-		repaint();
+		super.repaint();
 	}
 
 	/**

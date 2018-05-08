@@ -8,9 +8,9 @@ import java.util.Random;
 import main.*;
 
 /**
- * Le modèle : le coeur de l'application.
+ * Le mod�le : le coeur de l'application.
  *
- * Le modèle étend la classe [Observable] : il va posséder un certain nombre
+ * Le mod�le étend la classe [Observable] : il va posséder un certain nombre
  * d'observateurs (ici, un : la partie de la vue responsable de l'affichage) et
  * devra les prévenir avec [notifyObservers] lors des modifications. Voir la
  * méthode [avance()] pour cela.
@@ -25,12 +25,12 @@ public class Modele extends Observable {
 	private double chancesOfGettingKilled = 0.05;
 	
 	// D�cide si les joueurs sont plac�s n'importe o� ou sur la case d�part
-	static boolean randomInitOfPlayers = false;
+	static boolean randomInitOfPlayers = true;
 
 	/** Construction : on initialise un tableau de cellules. */
 	public Modele() {
 		/**
-		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
+		 * Pour éviter les probl�mes aux bords, on ajoute une ligne et une colonne de
 		 * chaque côté, dont les cellules n'évolueront pas.
 		 */
 
@@ -64,7 +64,7 @@ public class Modele extends Observable {
 
 	public Modele(int nombreDeJoueurs) {
 		/**
-		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
+		 * Pour éviter les probl�mes aux bords, on ajoute une ligne et une colonne de
 		 * chaque côté, dont les cellules n'évolueront pas.
 		 */
 
@@ -142,7 +142,7 @@ public class Modele extends Observable {
 
 	public void avance() {
 		/**
-		 * On procède en deux étapes. - D'abord, pour chaque cellule on évalue ce que
+		 * On proc�de en deux étapes. - D'abord, pour chaque cellule on évalue ce que
 		 * sera son état à la prochaine génération. - Ensuite, on applique les
 		 * évolutions qui ont été calculées.
 		 */
@@ -167,7 +167,7 @@ public class Modele extends Observable {
 		this.indexJoueurTour = 0;
 
 		/**
-		 * Pour finir, le modèle ayant changé, on signale aux observateurs qu'ils
+		 * Pour finir, le mod�le ayant changé, on signale aux observateurs qu'ils
 		 * doivent se mettre à jour.
 		 */
 		notifyObservers();
@@ -176,6 +176,7 @@ public class Modele extends Observable {
 	public void tour() {
 		for (int k = 0; k < 3; k++) {
 			this.joueurTour().demandeAction();
+			notifyObservers();
 		}
 		this.indexJoueurTour++;
 		notifyObservers();
@@ -199,7 +200,7 @@ public class Modele extends Observable {
 	/**
 	 * Notez qu'à l'intérieur de la classe [CModele], la classe interne est connue
 	 * sous le nom abrégé [Cellule]. Son nom complet est [CModele.Cellule], et cette
-	 * version complète est la seule à pouvoir être utilisée depuis l'extérieur de
+	 * version compl�te est la seule à pouvoir être utilisée depuis l'extérieur de
 	 * [CModele]. Dans [CModele], les deux fonctionnent.
 	 */
 }
