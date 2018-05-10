@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 
 import main.*;
@@ -25,6 +26,9 @@ public class Modele extends Observable {
 	private ArrayList<Joueur> joueurs;
 	private int indexJoueurTour;
 	private double chancesOfGettingKilled = 0.05;
+	
+	LinkedList<Artefact> clesRestantes = new LinkedList<>(Arrays.asList(Artefact.EAU,Artefact.TERRE,Artefact.FEU,Artefact.AIR));
+	LinkedList<Artefact> ArtefactsRestants = new LinkedList<>(Arrays.asList(Artefact.EAU,Artefact.TERRE,Artefact.FEU,Artefact.AIR));
 	
 	// Décide si les joueurs sont placés n'importe où ou sur la case départ
 	static boolean randomInitOfPlayers = true;

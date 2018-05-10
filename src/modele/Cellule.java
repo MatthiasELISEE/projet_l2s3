@@ -28,6 +28,8 @@ public class Cellule {
 	private boolean pasCoulee;
 	private boolean pasAssechee;
 	private ArrayList<Joueur> joueurs;
+	
+	Artefact artefact;
 
 	public Cellule(Modele modele, int x, int y) {
 		this.modele = modele;
