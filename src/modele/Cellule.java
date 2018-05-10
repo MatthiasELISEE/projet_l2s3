@@ -29,7 +29,7 @@ public class Cellule {
 	private boolean pasAssechee;
 	private ArrayList<Joueur> joueurs;
 	
-	Artefact artefact;
+	Artefact artefact = null;
 
 	public Cellule(Modele modele, int x, int y) {
 		this.modele = modele;
@@ -131,11 +131,19 @@ public class Cellule {
 		return y;
 	}
 	
-	public boolean estCoulee() {
+	public boolean estSousLEau() {
 		return this.etat==0;
+	}
+	
+	public boolean estEmergee() {
+		return this.etat==2;
 	}
 	
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
+	}
+	
+	public Artefact getArtefact() {
+		return this.artefact;
 	}
 }

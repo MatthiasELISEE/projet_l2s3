@@ -13,10 +13,10 @@ import main.*;
 /**
  * Le modèle : le coeur de l'application.
  *
- * Le modèle Ã©tend la classe [Observable] : il va possÃ©der un certain nombre
+ * Le modèle étend la classe [Observable] : il va posséder un certain nombre
  * d'observateurs (ici, un : la partie de la vue responsable de l'affichage) et
- * devra les prÃ©venir avec [notifyObservers] lors des modifications. Voir la
- * mÃ©thode [avance()] pour cela.
+ * devra les prévenir avec [notifyObservers] lors des modifications. Voir la
+ * méthode [avance()] pour cela.
  */
 public class Modele extends Observable {
 	/** On fixe la taille de la grille. */
@@ -28,7 +28,6 @@ public class Modele extends Observable {
 	private double chancesOfGettingKilled = 0.05;
 	
 	LinkedList<Artefact> clesRestantes = new LinkedList<>(Arrays.asList(Artefact.EAU,Artefact.TERRE,Artefact.FEU,Artefact.AIR));
-	LinkedList<Artefact> ArtefactsRestants = new LinkedList<>(Arrays.asList(Artefact.EAU,Artefact.TERRE,Artefact.FEU,Artefact.AIR));
 	
 	// Décide si les joueurs sont placés n'importe où ou sur la case départ
 	static boolean randomInitOfPlayers = true;
@@ -36,8 +35,8 @@ public class Modele extends Observable {
 	/** Construction : on initialise un tableau de cellules. */
 	public Modele() {
 		/**
-		 * Pour Ã©viter les problèmes aux bords, on ajoute une ligne et une colonne de
-		 * chaque cÃ´tÃ©, dont les cellules n'Ã©volueront pas.
+		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
+		 * chaque cÃ´té, dont les cellules n'évolueront pas.
 		 */
 
 		// cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
@@ -70,8 +69,8 @@ public class Modele extends Observable {
 
 	public Modele(int nombreDeJoueurs) throws IndexOutOfBoundsException {
 		/**
-		 * Pour Ã©viter les problèmes aux bords, on ajoute une ligne et une colonne de
-		 * chaque cÃ´tÃ©, dont les cellules n'Ã©volueront pas.
+		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
+		 * chaque cÃ´té, dont les cellules n'évolueront pas.
 		 */
 		// }
 		
@@ -98,7 +97,7 @@ public class Modele extends Observable {
 				do {
 					i = random.nextInt(LARGEUR);
 					j = random.nextInt(HAUTEUR);
-				} while (cellules[i][j].estCoulee());
+				} while (cellules[i][j].estSousLEau());
 				Joueur joueur = new Joueur(this, i, j);
 				this.cellules[i][j].ajouterJoueur(joueur);
 				this.joueurs.add(joueur);
@@ -128,8 +127,7 @@ public class Modele extends Observable {
 	}
 
 	/**
-	 * Initialisation alÃ©atoire des cellules, exceptÃ©es celle des bords qui ont Ã©tÃ©
-	 * ajoutÃ©s.
+	 * On coule des cellules prises aux hasard, et on implante aussi les artefacts
 	 */
 	public void init() {
 		for (int i = 0; i <= LARGEUR; i++) {
@@ -139,13 +137,31 @@ public class Modele extends Observable {
 				}
 			}
 		}
+		
+		Random random = new Random();
+		LinkedList<Artefact> artefactsDeLile = new LinkedList<>();
+		for (int k= 0; k < 4; k++) {
+			int i,j;
+			do {
+				i = random.nextInt(LARGEUR);
+				j = random.nextInt(HAUTEUR);
+			} while (!cellules[i][j].estEmergee());
+			
+			Artefact artefact = null;
+			
+			do {
+				artefact = Artefact.randomArtefact();
+			} while (artefactsDeLile.contains(artefact));
+			
+			this.cellules[i][j].artefact = artefact;
+		}
 	}
 
 	public void avance() {
 		/**
-		 * On procède en deux Ã©tapes. - D'abord, pour chaque cellule on Ã©value ce que
-		 * sera son Ã©tat Ã  la prochaine gÃ©nÃ©ration. - Ensuite, on applique les
-		 * Ã©volutions qui ont Ã©tÃ© calculÃ©es.
+		 * On procède en deux étapes. - D'abord, pour chaque cellule on évalue ce que
+		 * sera son état Ã  la prochaine génération. - Ensuite, on applique les
+		 * évolutions qui ont été calculées.
 		 */
 
 		int nombresDeCool = 0;
@@ -168,8 +184,8 @@ public class Modele extends Observable {
 		this.indexJoueurTour = 0;
 
 		/**
-		 * Pour finir, le modèle ayant changÃ©, on signale aux observateurs qu'ils
-		 * doivent se mettre Ã  jour.
+		 * Pour finir, le modèle ayant changé, on signale aux observateurs qu'ils
+		 * doivent se mettre à jour.
 		 */
 		notifyObservers();
 	}
@@ -192,16 +208,16 @@ public class Modele extends Observable {
 	}
 
 	/**
-	 * Une mÃ©thode pour renvoyer la cellule aux coordonnÃ©es choisies (sera utilisÃ©e
+	 * Une méthode pour renvoyer la cellule aux coordonnées choisies (sera utilisée
 	 * par la vue).
 	 */
 	public Cellule getCellule(int x, int y) {
 		return cellules[x][y];
 	}
 	/**
-	 * Notez qu'Ã  l'intÃ©rieur de la classe [CModele], la classe interne est connue
-	 * sous le nom abrÃ©gÃ© [Cellule]. Son nom complet est [CModele.Cellule], et cette
-	 * version complète est la seule Ã  pouvoir Ãªtre utilisÃ©e depuis l'extÃ©rieur de
+	 * Notez qu'Ã  l'intérieur de la classe [CModele], la classe interne est connue
+	 * sous le nom abrégé [Cellule]. Son nom complet est [CModele.Cellule], et cette
+	 * version complète est la seule Ã  pouvoir Ãªtre utilisée depuis l'extérieur de
 	 * [CModele]. Dans [CModele], les deux fonctionnent.
 	 */
 }

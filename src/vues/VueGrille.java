@@ -120,6 +120,12 @@ public class VueGrille extends JPanel implements Observer {
 				Y += 10;
 			}
 		}
+		
+		if (c.getArtefact() != null) {
+			g.setColor(Color.GREEN);
+			g.fillRect(x + TAILLE / 2, y + TAILLE / 2, TAILLE / 4, TAILLE / 4);
+			g.drawRect(x + TAILLE / 2, y + TAILLE / 2, TAILLE / 4, TAILLE / 4);
+		}
 
 	}
 }
