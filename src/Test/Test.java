@@ -1,4 +1,7 @@
 
+package Test;
+
+import static org.junit.Assert.*;
 import org.junit.*;
 import org.junit.Test;
 import java.util.List;
@@ -11,8 +14,7 @@ public class Test_Joueur {
 Joueur j1;
 Modele m;
 Cellule c;
-static LinkedList<String> noms = new LinkedList<>(
-		Arrays.asList("Hall", "Brett", "Alex", "Fynn", "Jude", "Dave"));
+
 	@Before
 	public void Init() {
 		m = new Modele();
@@ -39,5 +41,10 @@ static LinkedList<String> noms = new LinkedList<>(
     	assertEquals(j1.assecher(0, 0),c.estSeche());
     	
     }
-   
+    @Test
+    public void TestAction() {
+    	Joueur j2 = new Joueur(m,0, 0);
+    	assertEquals(j2.faitAction("dd"),true);
+    }
+    
 }
