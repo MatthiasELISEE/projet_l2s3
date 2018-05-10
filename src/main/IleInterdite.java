@@ -9,26 +9,26 @@ import modele.*;
 import vues.*;
 
 /**
- * Un lien entre vue et modèle : les informations montrées à l'utilisateur
- * reflètent l'état du modèle et doivent être maintenues à jour.
+ * Un lien entre vue et modèle : les informations montr�es à l'utilisateur
+ * reflètent l'�tat du modèle et doivent être maintenues à jour.
  * 
- * Pour réaliser cette synchronisation, on peut suivre le schéma de conception
- * observateur/observé, dont le principe est le suivant :
- *  - Un observateur (en l'occurrence la vue) est lié à un objet observé et se
- *    met à jour pour refléter les changement de l'observé.
- *  - Un observé est lié à un ensemble d'objets observateurs et les notifie de
- *    tout changement de son propre état.
+ * Pour r�aliser cette synchronisation, on peut suivre le sch�ma de conception
+ * observateur/observ�, dont le principe est le suivant :
+ *  - Un observateur (en l'occurrence la vue) est li� à un objet observ� et se
+ *    met à jour pour refl�ter les changement de l'observ�.
+ *  - Un observ� est li� à un ensemble d'objets observateurs et les notifie de
+ *    tout changement de son propre �tat.
  *
  * Java fournit une interface [Observer] (observateur) et une classe
- * [Observable] (observé) assurant cette jonction.
+ * [Observable] (observ�) assurant cette jonction.
  * Voici une manière sommaire de les recoder.
  */
 
 public class IleInterdite {
     /**
-     * L'amorçage est fait en créant le modèle et la vue, par un simple appel
+     * L'amorçage est fait en cr�ant le modèle et la vue, par un simple appel
      * à chaque constructeur.
-     * Ici, le modèle est créé indépendamment (il s'agit d'une partie autonome
+     * Ici, le modèle est cr�� ind�pendamment (il s'agit d'une partie autonome
      * de l'application), et la vue prend le modèle comme paramètre (son
      * objectif est de faire le lien entre modèle et utilisateur).
      */
