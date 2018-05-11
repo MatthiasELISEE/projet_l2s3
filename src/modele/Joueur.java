@@ -20,6 +20,8 @@ public class Joueur {
 	String nom;
 	private Modele modele;
 
+	Artefact cle;
+
 	public Joueur(Modele modele, int x, int y) throws NoSuchElementException{
 		this.x = x;
 		this.y = y;
@@ -44,7 +46,6 @@ public class Joueur {
 	
 	public String toString() {
 		return this.nom;
-		//return this.nom + "("+this.x+","+this.y+")";
 	}
 
 	public boolean assecher(int i, int j) {
@@ -65,9 +66,6 @@ public class Joueur {
 
 	boolean faitAction(String instruction) {
 		Cellule[][] cellules = this.modele.cellules;
-		// System.err.println("#"+instruction+"#");
-		// System.err.println("#"+(instruction.equals("dh"))+"#");
-		System.err.println("#"+(this.y - 1 >= 0)+"#");
 
 		if (instruction.equals("dg") && this.x - 1 >= 0) {
 			cellules[this.x][this.y].retirerJoueur(this);
@@ -104,40 +102,56 @@ public class Joueur {
 			this.assecher(this.x, this.y + 1);
 			System.out.println("tu as asséché en bas");
 		}
+		
+		else if (instruction.equals("rg") && this.x - 1 >= 0) {
+			if (this.recupereArtefact(this.x - 1, this.y)== null) {
+				System.out.println("Ta clé n'est pas compatible avec cette artefact.");
+			} else {
+				System.out.println("Bravo ! On va y arriver !");
+			}
+		} else if (instruction.equals("rd") && this.x + 1 < Modele.LARGEUR) {
+			if (this.recupereArtefact(this.x + 1, this.y)== null) {
+				System.out.println("Ta clé n'est pas compatible avec cette artefact.");
+			} else {
+				System.out.println("Bravo ! On va y arriver !");
+			}
+		} else if (instruction.equals("rh") && this.y - 1 >= 0) {
+			if (this.recupereArtefact(this.x, this.y-1)== null) {
+				System.out.println("Ta clé n'est pas compatible avec cette artefact.");
+			} else {
+				System.out.println("Bravo ! On va y arriver !");
+			}
+		} else if (instruction.equals("rb") && this.y + 1 < Modele.HAUTEUR) {
+			if (this.recupereArtefact(this.x, this.y+1)== null) {
+				System.out.println("Ta clé n'est pas compatible avec cette artefact.");
+			} else {
+				System.out.println("Bravo ! On va y arriver !");
+			}
+		}
 
 		else {
 			System.err.println("instructions incorrectes");
 			return false;
 		}
 		
+		this.modele.cellules = cellules;
+		
 		return true;
 	}
 
 	public void demandeAction() {
-		// String str;
-		// Scanner sc = new Scanner(System.in);
-		// //System.out.println("Veuillez saisir g pour Gauche, d pour droite, b pour
-		// bas, h pour haut :");
-		// System.out.println("A ton tour, "+this.nom);
-		// System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement");
-		// str = "";
-		// while (sc.hasNextLine()) {
-		// str = sc.nextLine();
-		// }
-		// char carac = str.charAt(0);
-		// System.out.println("déplacements : (g)auche, (d)roite, (b)as, (h)aut :");
-		// str = sc.nextLine();
-		// String instruction = Character.toString(carac) +
-		// Character.toString(str.charAt(0));
-		//
-		// this.faitAction(instruction);
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
-		System.out.println("Choisis une action, "+this.nom);
+		System.out.print("Choisis une action, "+this.nom);
+		if (this.cle!=null) {
+			System.out.print("; tu possèdes la clé : "+this.cle);
+		}
+		System.out.println();
+		
 		try {
 			String action,direction;
 			do {
-				System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement, (q)ue dalle");
+				System.out.println("Sélectionner action : (d)éplacement, (a)ssèchement, (r)écupérer artefact, (q)ue dalle");
 				action = br.readLine();
 				if (action.equals("q")) {
 					System.err.println("Patience et longueur de temps valent mieux que force ni que rage");
@@ -149,5 +163,24 @@ public class Joueur {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	void recevoirCle(Artefact cle) {
+		this.cle = cle;
+	}
+	
+	// Cette fonction permet de récupérer un artefact depuis des coordonnées
+	Artefact recupereArtefact(int i, int j) {
+		Cellule c = this.modele.getCellule(i, j);
+		
+		if (Math.abs(i - x) < 2 && Math.abs(j - y) < 2 && this.cle == c.artefact) {
+			Artefact returned = c.artefact;
+			this.cle = null;
+			c.artefact = null;
+			return returned;
+		}
+		
+		return null;
 	}
 }

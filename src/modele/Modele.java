@@ -20,36 +20,20 @@ import main.*;
  */
 public class Modele extends Observable {
 	/** On fixe la taille de la grille. */
-	public static final int HAUTEUR = 10, LARGEUR = 10;
+	public static final int HAUTEUR = 5, LARGEUR = 5;
 	/** On stocke un tableau de cellules. */
 	Cellule[][] cellules;
 	private ArrayList<Joueur> joueurs;
 	private int indexJoueurTour;
-	private double chancesOfGettingKilled = 0.05;
+	private double randomHelper = 0.05;
 	
-	LinkedList<Artefact> clesRestantes = new LinkedList<>(Arrays.asList(Artefact.EAU,Artefact.TERRE,Artefact.FEU,Artefact.AIR));
+	LinkedList<Artefact> clesRestantes = new LinkedList<>(Arrays.asList(Artefact.eau,Artefact.ter,Artefact.feu,Artefact.air));
 	
-	// Décide si les joueurs sont placés n'importe où ou sur la case départ
+	// Décide si les joueurs sont placés n'importe où, ou sur la case départ
 	static boolean randomInitOfPlayers = true;
 
 	/** Construction : on initialise un tableau de cellules. */
 	public Modele() {
-		/**
-		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
-		 * chaque cÃ´té, dont les cellules n'évolueront pas.
-		 */
-
-		// cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
-		// g = new Joueur(2,2);
-		//
-		// for (int i = 0; i < LARGEUR + 2; i++) {
-		// for (int j = 0; j < HAUTEUR + 2; j++) {
-		// cellules[i][j] = new Cellule(this, i, j);
-		// if(g.ExisteJoueur(i, j)==true) {
-		// cellules[i][j].YajoueurC=true;
-		// }
-		// }
-		// }
 
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
 		this.joueurs = new ArrayList<>();
@@ -132,7 +116,7 @@ public class Modele extends Observable {
 	public void init() {
 		for (int i = 0; i <= LARGEUR; i++) {
 			for (int j = 0; j <= HAUTEUR; j++) {
-				if (Math.random() < chancesOfGettingKilled) {
+				if (Math.random() < randomHelper) {
 					cellules[i][j].etat = 1;
 				}
 			}
@@ -154,6 +138,7 @@ public class Modele extends Observable {
 			} while (artefactsDeLile.contains(artefact));
 			
 			this.cellules[i][j].artefact = artefact;
+			artefactsDeLile.add(artefact);
 		}
 	}
 
@@ -191,11 +176,30 @@ public class Modele extends Observable {
 	}
 
 	public void tour() {
+		
+		// Demande l'action au joueur dont c'est le tour
+		
 		for (int k = 0; k < 3; k++) {
 			this.joueurTour().demandeAction();
 			notifyObservers();
 		}
+		
+		// Don d'une clé
+		
+		if (this.joueurTour().cle == null && Math.random()<0.4) {
+			Artefact cle = null;
+			do {
+				cle = Artefact.randomArtefact();
+			} while (!this.clesRestantes.contains(cle));
+			
+			this.joueurTour().recevoirCle(cle);
+			
+			System.out.println("Vous avez gagné la clé "+cle+", "+this.joueurTour().toString()+" !");
+			this.clesRestantes.remove(cle);
+		}
+		
 		this.indexJoueurTour++;
+		
 		notifyObservers();
 	}
 
@@ -214,10 +218,4 @@ public class Modele extends Observable {
 	public Cellule getCellule(int x, int y) {
 		return cellules[x][y];
 	}
-	/**
-	 * Notez qu'Ã  l'intérieur de la classe [CModele], la classe interne est connue
-	 * sous le nom abrégé [Cellule]. Son nom complet est [CModele.Cellule], et cette
-	 * version complète est la seule Ã  pouvoir Ãªtre utilisée depuis l'extérieur de
-	 * [CModele]. Dans [CModele], les deux fonctionnent.
-	 */
 }

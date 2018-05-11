@@ -17,13 +17,13 @@ import main.*;
  * Une classe pour représenter la zone d'affichage des cellules.
  *
  * JPanel est une classe d'éléments graphiques, pouvant comme JFrame contenir
- * d'autres éléments graphi ques.
+ * d'autres éléments graphiques.
  *
- * Cette vue va étre un observateur du modéle et sera mise é jour é chaque
+ * Cette vue va étre un observateur du modèle et sera mise à jour à chaque
  * nouvelle génération des cellules.
  */
 public class VueGrille extends JPanel implements Observer {
-	/** On maintient une référence vers le modéle. */
+	/** On maintient une référence vers le modèle. */
 	private Image img;
 	private Modele modele;
 	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
@@ -54,7 +54,7 @@ public class VueGrille extends JPanel implements Observer {
 
 	/**
 	 * Les éléments graphiques comme [JPanel] possédent une méthode [paintComponent]
-	 * qui définit l'action é accomplir pour afficher cet élément. On la redéfinit
+	 * qui définit l'action à accomplir pour afficher cet élément. On la redéfinit
 	 * ici pour lui confier l'affichage des cellules.
 	 *
 	 * La classe [Graphics] regroupe les éléments de style sur le dessin, comme la
@@ -67,7 +67,7 @@ public class VueGrille extends JPanel implements Observer {
 			for (int j = 1; j <= Modele.HAUTEUR; j++) {
 				/**
 				 * ... Appeler une fonction d'affichage auxiliaire. On lui fournit les
-				 * informations de dessin [g] et les coordonnées du coin en haut é gauche.
+				 * informations de dessin [g] et les coordonnées du coin en haut à gauche.
 				 */
 				paint(g, modele.getCellule(i - 1, j - 1), (i - 1) * TAILLE, (j - 1) * TAILLE);
 			}
@@ -81,7 +81,7 @@ public class VueGrille extends JPanel implements Observer {
 	 * [Cellule] était déclarée privée dans [CModele].
 	 */
 
-	private void paint(Graphics g, Cellule c, int x, int y) {
+	private void paint(Graphics g, Cellule c, int x, int y) {		
 		/** Sélection d'une couleur. */
 
 		if (c.etat == 0) {
@@ -109,12 +109,14 @@ public class VueGrille extends JPanel implements Observer {
 		
 		if (c.Yatiljoueur()) {
 			g.setColor(Color.RED);
+			
 			g.fillRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
 			g.drawRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
 			g.setColor(Color.BLACK);
-
+			
 			int X = x + TAILLE / 3;
 			int Y = y + TAILLE / 3;
+			
 			for (Joueur j : c.getJoueurs()) {
 				g.drawString(j.toString(), X, Y);
 				Y += 10;
@@ -123,9 +125,11 @@ public class VueGrille extends JPanel implements Observer {
 		
 		if (c.getArtefact() != null) {
 			g.setColor(Color.GREEN);
+			int X = x + TAILLE / 2;
+			int Y = y + TAILLE / 2;
+			g.drawString(c.getArtefact().toString(), X, Y);
 			g.fillRect(x + TAILLE / 2, y + TAILLE / 2, TAILLE / 4, TAILLE / 4);
 			g.drawRect(x + TAILLE / 2, y + TAILLE / 2, TAILLE / 4, TAILLE / 4);
 		}
-
 	}
 }

@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-enum Artefact {
+public enum Artefact {
 	
 	// Types d'Artefact
 	
-	AIR, EAU, FEU, TERRE;
+	air, eau, feu, ter;
 	
 	// Fonction de choix au hasard et ce qu'elle utilise.
 	
