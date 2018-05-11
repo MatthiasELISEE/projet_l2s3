@@ -29,7 +29,7 @@ public class Vue {
 	 */
 	private VueGrille grille;
 	private VueCommandes commandes;
-	private VueItems JoueurFrame;
+	private VueItems joueurFrame;
 
 	/** Construction d'une vue attachÃ©e Ã  un modÃ¨le. */
 	public Vue(Modele modele) {
@@ -60,8 +60,8 @@ public class Vue {
 		frame.add(commandes);
 		
 		
-		JoueurFrame = new VueItems(modele);
-		frame.add(JoueurFrame);
+		joueurFrame = new VueItems(modele);
+		frame.add(joueurFrame);
 		
 		/**
 		 * Remarque : on peut passer Ã  la mÃ©thode [add] des paramÃ¨tres

@@ -36,10 +36,11 @@ public class VueItems extends JPanel implements Observer {
 	}
 
 	public void update() {
-
+		this.paint(this.getGraphics());
 	}
 
 	public void paint(Graphics g) {
+		super.paint(g);
 		try {
 			img = ImageIO.read(new File("scores.jpeg"));
 		} catch (IOException exc) {
@@ -56,7 +57,7 @@ public class VueItems extends JPanel implements Observer {
 		for (Joueur j : this.modele.joueurs()) {
 			String str = "";
 			if (j.getCle() == Artefact.eau) {
-				str = " : contient l'artefact eau";
+				str = " : possède l'artefact eau";
 				try {
 
 					Image img2 = ImageIO.read(new File("eau.png"));
@@ -72,7 +73,7 @@ public class VueItems extends JPanel implements Observer {
 
 			}
 			if (j.getCle() == Artefact.feu) {
-				str = " : contient l'artefact feu";
+				str = " : possède l'artefact feu";
 				try {
 					Image img2 = ImageIO.read(new File("feu.png"));
 					g.setFont(f);
@@ -86,7 +87,7 @@ public class VueItems extends JPanel implements Observer {
 				}
 			}
 			if (j.getCle() == Artefact.ter) {
-				str = " : contient l'artefact ter";
+				str = " : possède l'artefact ter";
 				try {
 					Image img2 = ImageIO.read(new File("terre.png"));
 					g.setFont(f);
@@ -100,7 +101,7 @@ public class VueItems extends JPanel implements Observer {
 				}
 			}
 			if (j.getCle() == Artefact.air) {
-				str = " : contient l'artefact air";
+				str = " : possède l'artefact air";
 				try {
 					Image img2 = ImageIO.read(new File("air.png"));
 					g.setFont(f);
@@ -113,7 +114,7 @@ public class VueItems extends JPanel implements Observer {
 					exc.printStackTrace();
 				}
 			} else {
-				str = " :Artefact Ã  trouver";
+				str = " : Artefact à trouver";
 				try {
 					Image img2 = ImageIO.read(new File("elements.jpg"));
 					g.setFont(f);

@@ -176,7 +176,6 @@ public class Modele extends Observable {
 	}
 
 	public void tour() {
-		
 		// Demande l'action au joueur dont c'est le tour
 		
 		for (int k = 0; k < 3; k++) {
@@ -186,7 +185,7 @@ public class Modele extends Observable {
 		
 		// Don d'une clé
 		
-		if (this.joueurTour().cle == null && Math.random()<0.4) {
+		if (this.joueurTour().cle == null && Math.random()<0.4 && !this.clesRestantes.isEmpty()) {
 			Artefact cle = null;
 			do {
 				cle = Artefact.randomArtefact();
