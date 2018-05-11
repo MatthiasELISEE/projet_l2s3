@@ -102,7 +102,7 @@ public class Cellule {
 		}
 	}
 	
-	protected void assecher() {
+	void assecher() {
 		this.prochainEtat=2;
 		this.pasAssechee = false;
 	}
