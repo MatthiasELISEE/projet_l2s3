@@ -55,15 +55,15 @@ public class VueItems extends JPanel implements Observer {
 		int coordXImg = 305;
 		for (Joueur j : this.modele.joueurs()) {
 			String str = "";
-			if (j.JoueurtArtefact(j) == Artefact.eau) {
+			if (j.getCle() == Artefact.eau) {
 				str = " : contient l'artefact eau";
 				try {
 
 					Image img2 = ImageIO.read(new File("eau.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.getNom(j) + str, 120, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.getNom(j).length() * 2, coord - 15, TAILLE / 4,
+					g.drawString(j.toString() + str, 120, coord);
+					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
 				} catch (IOException exc) {
@@ -71,42 +71,42 @@ public class VueItems extends JPanel implements Observer {
 				}
 
 			}
-			if (j.JoueurtArtefact(j) == Artefact.feu) {
+			if (j.getCle() == Artefact.feu) {
 				str = " : contient l'artefact feu";
 				try {
 					Image img2 = ImageIO.read(new File("feu.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.getNom(j) + str, 120, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.getNom(j).length() * 2, coord - 15, TAILLE / 4,
+					g.drawString(j.toString() + str, 120, coord);
+					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
 			}
-			if (j.JoueurtArtefact(j) == Artefact.ter) {
+			if (j.getCle() == Artefact.ter) {
 				str = " : contient l'artefact ter";
 				try {
 					Image img2 = ImageIO.read(new File("terre.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.getNom(j) + str, 120, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.getNom(j).length() * 2, coord - 15, TAILLE / 4,
+					g.drawString(j.toString() + str, 120, coord);
+					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
 			}
-			if (j.JoueurtArtefact(j) == Artefact.air) {
+			if (j.getCle() == Artefact.air) {
 				str = " : contient l'artefact air";
 				try {
 					Image img2 = ImageIO.read(new File("air.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.getNom(j) + str, 120, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.getNom(j).length() * 2, coord - 15, TAILLE / 4,
+					g.drawString(j.toString() + str, 120, coord);
+					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
 				} catch (IOException exc) {
@@ -118,8 +118,8 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("elements.jpg"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.getNom(j) + str, 120, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.getNom(j).length() * 2, coord - 15, TAILLE / 4,
+					g.drawString(j.toString() + str, 120, coord);
+					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
 				} catch (IOException exc) {
