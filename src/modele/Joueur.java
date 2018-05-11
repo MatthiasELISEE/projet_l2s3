@@ -35,7 +35,12 @@ public class Joueur {
 			throw new NoSuchElementException("Plus de noms disponibles !");
 		}
 	}
-
+	public Artefact JoueurtArtefact(Joueur j) {
+		return j.cle;
+	}
+	public String getNom(Joueur j) {
+		return j.nom;
+	}
 	public int getX() {
 		return this.x;
 	}
