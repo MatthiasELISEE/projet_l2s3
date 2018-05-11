@@ -145,7 +145,7 @@ public class Modele extends Observable {
 			do {
 				i = random.nextInt(LARGEUR);
 				j = random.nextInt(HAUTEUR);
-			} while (!cellules[i][j].estEmergee());
+			} while (!cellules[i][j].estSeche());
 			
 			Artefact artefact = null;
 			

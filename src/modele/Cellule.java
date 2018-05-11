@@ -135,7 +135,7 @@ public class Cellule {
 		return this.etat==0;
 	}
 	
-	public boolean estEmergee() {
+	public boolean estSeche() {
 		return this.etat==2;
 	}
 	
