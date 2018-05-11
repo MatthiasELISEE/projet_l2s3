@@ -15,11 +15,11 @@ import main.*;
 
 public class VueItems extends JPanel implements Observer {
 	private Modele modele;
-	/** On maintient une référence vers le modéle. */
+	/** On maintient une rÃ©fÃ©rence vers le modÃ©le. */
 	private Image img;
 	private Image imgFeu;
 	Font f;
-	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
+	/** DÃ©finition d'une taille (en pixels) pour l'affichage des cellules. */
 	private final static int TAILLE = 80;
 
 	/** Constructeur. */
@@ -28,8 +28,8 @@ public class VueItems extends JPanel implements Observer {
 		/** On enregistre la vue [this] en tant qu'observateur de [modele]. */
 		modele.addObserver(this);
 		/**
-		 * Définition et application d'une taille fixe pour cette zone de l'interface,
-		 * calculée en fonction du nombre de cellules et de la taille d'affichage.
+		 * DÃ©finition et application d'une taille fixe pour cette zone de l'interface,
+		 * calculÃ©e en fonction du nombre de cellules et de la taille d'affichage.
 		 */
 		Dimension dim = new Dimension(TAILLE * Modele.LARGEUR, TAILLE * Modele.HAUTEUR);
 		this.setPreferredSize(dim);
@@ -50,14 +50,14 @@ public class VueItems extends JPanel implements Observer {
 		// g.drawImage(img, x, y, this);
 		// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		g.drawImage(img, 50, 10, TAILLE * 4, TAILLE * 2, this);
-		f = new Font("Courier", Font.BOLD, 15);
+		f = new Font("Arial", Font.BOLD, 15);
 
 		int coord = 200;
 		int coordXImg = 305;
 		for (Joueur j : this.modele.joueurs()) {
 			String str = "";
 			if (j.getCle() == Artefact.eau) {
-				str = " : poss�de l'artefact eau";
+				str = " : possède la clee eau";
 				try {
 
 					Image img2 = ImageIO.read(new File("eau.png"));
@@ -73,7 +73,7 @@ public class VueItems extends JPanel implements Observer {
 
 			}
 			if (j.getCle() == Artefact.feu) {
-				str = " : poss�de l'artefact feu";
+				str = " : possède la clee feu";
 				try {
 					Image img2 = ImageIO.read(new File("feu.png"));
 					g.setFont(f);
@@ -87,7 +87,7 @@ public class VueItems extends JPanel implements Observer {
 				}
 			}
 			if (j.getCle() == Artefact.ter) {
-				str = " : poss�de l'artefact ter";
+				str = " : possède la clee ter";
 				try {
 					Image img2 = ImageIO.read(new File("terre.png"));
 					g.setFont(f);
@@ -101,7 +101,7 @@ public class VueItems extends JPanel implements Observer {
 				}
 			}
 			if (j.getCle() == Artefact.air) {
-				str = " : poss�de l'artefact air";
+				str = " : possède la clee air";
 				try {
 					Image img2 = ImageIO.read(new File("air.png"));
 					g.setFont(f);
@@ -114,7 +114,7 @@ public class VueItems extends JPanel implements Observer {
 					exc.printStackTrace();
 				}
 			} else {
-				str = " : Artefact � trouver";
+				str = " : voici les artefacts";
 				try {
 					Image img2 = ImageIO.read(new File("elements.jpg"));
 					g.setFont(f);
