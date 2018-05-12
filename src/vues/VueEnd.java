@@ -58,19 +58,20 @@ public class VueEnd extends JPanel implements Observer {
 	public void paint(Graphics g) {
 		super.paint(g);
 		int compt = 0;
+		int compt2 = 0;
 		/** Pour chaque cellule... */
 		for (int i = 1; i <= Modele.LARGEUR; i++) {
 			for (int j = 1; j <= Modele.HAUTEUR; j++) {
 				if (modele.getCellule(i - 1, j - 1).estSousLEau()) {
 					compt++;
 				}
-				if (compt == 3) {
+				if (compt == 5) {
 					try {
 						img = ImageIO.read(new File("end.jpg"));
 					} catch (IOException exc) {
 						exc.printStackTrace();
 					}
-					g.drawImage(img, 0, 0, TAILLE * 2, TAILLE * 2, this);
+					g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 6, this);
 					// System.exit(0);
 					/*
 					 * frame = new JFrame();
@@ -83,15 +84,32 @@ public class VueEnd extends JPanel implements Observer {
 					 * frame.setVisible(true);
 					 */
 					try {
-						Thread.sleep(4000);
+						Thread.sleep(10000);
 						System.exit(0);
 					} catch (InterruptedException ex) {
 						Thread.currentThread().interrupt();
 					}
 
 				}
-
+				if (modele.getCellule(i - 1, j - 1).YaArtefact()) {
+					compt2 = compt2 + 1;
+				}
 			}
 		}
+		if (compt2 == 3) {
+			try {
+				img = ImageIO.read(new File("win.jpg"));
+			} catch (IOException exc) {
+				exc.printStackTrace();
+			}
+			g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 6, this);
+			try {
+				Thread.sleep(10000);
+				System.exit(0);
+			} catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+		}
+
 	}
 }
