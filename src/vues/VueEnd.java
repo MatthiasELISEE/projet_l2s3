@@ -1,34 +1,25 @@
 package vues;
 
 import java.io.DataInputStream;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.io.InputStream;
 import javax.swing.JPanel;
 import java.io.IOException;
 import java.awt.Image;
-import java.io.File;
-import javax.swing.JFrame;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import modele.*;
 import main.*;
 
 import java.io.*;
-import javax.sound.sampled.*;
 
 public class VueEnd extends JPanel implements Observer {
 	/** On maintient une référence vers le modèle. */
 	private Image img;
 	private Modele modele;
-	private JFrame frame;
-	private AudioFormat format;
-	private byte[] samples;
 	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
 	private final static int TAILLE = 50;
-	private VueItems joueurFrame;
 
 	/** Constructeur. */
 	public VueEnd(Modele modele) {
@@ -45,8 +36,8 @@ public class VueEnd extends JPanel implements Observer {
 
 	/**
 	 * L'interface [Observer] demande de fournir une méthode [update], qui sera
-	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici on
-	 * se content de réafficher toute la grille avec la méthode prédéfinie
+	 * appelée lorsque la vue sera notifiée d'un changement dans le modèle. Ici
+	 * on se content de réafficher toute la grille avec la méthode prédéfinie
 	 * [repaint].
 	 */
 	public void update() {
@@ -59,9 +50,7 @@ public class VueEnd extends JPanel implements Observer {
 		private AudioFormat format;
 		private byte[] samples;
 
-		/**
-		 * 
-		 * @param filename
+		/** @param filename
 		 *            le lien vers le fichier song (URL ou absolute path)
 		 */
 		public Sound(String filename) {
@@ -121,42 +110,44 @@ public class VueEnd extends JPanel implements Observer {
 	}
 
 	public void paint(Graphics g) {
+		// Effa�age du pr�c�dent affichage par l'appel de la classe m�re
 		super.paint(g);
-		int compt = 0;
-		int compt2 = 0;
-		/** Pour chaque cellule... */
+		
+		// On v�rifie si on a perdu
+		// TODO: sauf qu'on peut pas encore
+//		if (modele.joueurs().size()<4) {
+//			try {
+//				img = ImageIO.read(new File("end.jpg"));
+//			} catch (IOException exc) {
+//				exc.printStackTrace();
+//			}
+//			g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 6, this);
+//			Sound player = new Sound("mario.WAV");
+//			InputStream stream = new ByteArrayInputStream(player.getSamples());
+//			player.play(stream);
+//
+//			try {
+//				Thread.sleep(5000);
+//				System.exit(0);
+//			} catch (InterruptedException ex) {
+//				Thread.currentThread().interrupt();
+//			}
+//		}
+		
+		
+		int nombredArtefact = 0;
+		// Compter le nombre d'Artefacts
 		for (int i = 1; i <= Modele.LARGEUR; i++) {
 			for (int j = 1; j <= Modele.HAUTEUR; j++) {
-				if (modele.getCellule(i - 1, j - 1).estSousLEau()) {
-					compt++;
-				}
-				if (compt == 3) {
-
-					try {
-						img = ImageIO.read(new File("end.jpg"));
-					} catch (IOException exc) {
-						exc.printStackTrace();
-					}
-					g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 6, this);
-					Sound player = new Sound("mario.WAV");
-					InputStream stream = new ByteArrayInputStream(player.getSamples());
-					player.play(stream);
-
-					try {
-						Thread.sleep(5000);
-						System.exit(0);
-					} catch (InterruptedException ex) {
-						Thread.currentThread().interrupt();
-					}
-
-				}
-				if (modele.getCellule(i - 1, j - 1).YaArtefact()) {
-					compt2 = compt2 + 1;
+				if (modele.getCellule(i - 1, j - 1).getArtefact()!=null) {
+					nombredArtefact++;
 				}
 			}
 		}
-
-		if (compt2 == 3) {
+		
+		
+		// Si on a gagn�
+		if (nombredArtefact == 0 && modele.getCellule(0, 0).getJoueurs().size()==modele.joueurs().size()) {
 			try {
 				img = ImageIO.read(new File("win.jpg"));
 			} catch (IOException exc) {
