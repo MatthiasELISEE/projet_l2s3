@@ -138,6 +138,7 @@ public class VueEnd extends JPanel implements Observer {
 					nombredArtefact++;
 
 				}
+				//Si la case départ est sous l'eau: Perdu
 				if(modele.getCellule(0, 0).estSousLEau()) {
 					try {
 						img = ImageIO.read(new File("end.jpg"));
