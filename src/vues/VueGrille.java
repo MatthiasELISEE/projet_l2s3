@@ -27,7 +27,7 @@ public class VueGrille extends JPanel implements Observer {
 	private Image img;
 	private Modele modele;
 	/** Définition d'une taille (en pixels) pour l'affichage des cellules. */
-	private final static int TAILLE = 50;
+	private final static int TAILLE = 75;
 
 	/** Constructeur. */
 	public VueGrille(Modele modele) {
@@ -95,16 +95,17 @@ public class VueGrille extends JPanel implements Observer {
 
 		g.fillRect(x, y, TAILLE, TAILLE);
 		if (x == 0 && y == 0) {
-			try {
-				img = ImageIO.read(new File("image_case_depart.png"));
-			} catch (IOException exc) {
-				exc.printStackTrace();
-			}
-
-			// g.drawImage(img, x, y, this);
-			// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-			g.drawImage(img, 0, 0, TAILLE, TAILLE, this);
-			
+//			try {
+//				img = ImageIO.read(new File("image_case_depart.png"));
+//			} catch (IOException exc) {
+//				exc.printStackTrace();
+//			}
+//
+//			// g.drawImage(img, x, y, this);
+//			// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+//			g.drawImage(img, 0, 0, TAILLE, TAILLE, this);
+			g.setColor(Color.WHITE);
+			g.drawString("Héliport", 0, TAILLE);
 		}
 		
 		if (c.Yatiljoueur()) {
@@ -112,7 +113,7 @@ public class VueGrille extends JPanel implements Observer {
 			
 			g.fillRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
 			g.drawRect(x + TAILLE / 3, y + TAILLE / 3, TAILLE / 3, TAILLE / 3);
-			g.setColor(Color.BLACK);
+			g.setColor(Color.WHITE);
 			
 			int X = x + TAILLE / 3;
 			int Y = y + TAILLE / 3;

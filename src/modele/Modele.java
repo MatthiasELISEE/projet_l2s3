@@ -22,10 +22,10 @@ public class Modele extends Observable {
 	Cellule[][] cellules;
 	private ArrayList<Joueur> joueurs;
 	private int indexJoueurTour;
-	private double randomHelper = 0.05;
-	
-	LinkedList<Artefact> clesRestantes = new LinkedList<>(Arrays.asList(Artefact.eau,Artefact.ter,Artefact.feu,Artefact.air));
-	
+
+	LinkedList<Artefact> clesRestantes = new LinkedList<>(
+			Arrays.asList(Artefact.eau, Artefact.ter, Artefact.feu, Artefact.air));
+
 	// Décide si les joueurs sont placés n'importe où, ou sur la case départ
 	static boolean randomInitOfPlayers = true;
 
@@ -53,7 +53,7 @@ public class Modele extends Observable {
 		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
 		 * chaque cÃ´té, dont les cellules n'évolueront pas.
 		 */
-		
+
 		if (nombreDeJoueurs > Joueur.noms.size()) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -68,10 +68,10 @@ public class Modele extends Observable {
 		}
 
 		init();
-		
+
 		if (randomInitOfPlayers) {
 			Random random = new Random();
-			for (int k= 0; k < nombreDeJoueurs; k++) {
+			for (int k = 0; k < nombreDeJoueurs; k++) {
 				int i;
 				int j;
 				do {
@@ -83,26 +83,24 @@ public class Modele extends Observable {
 				this.joueurs.add(joueur);
 			}
 		} else {
-			for (int k= 0; k < nombreDeJoueurs; k++) {
+			for (int k = 0; k < nombreDeJoueurs; k++) {
 				Joueur joueur = new Joueur(this, 0, 0);
 				this.cellules[0][0].ajouterJoueur(joueur);
 				this.joueurs.add(joueur);
 			}
 		}
 	}
-	
-	
 
 	public Modele(Modele modele) {
 		cellules = new Cellule[LARGEUR + 2][HAUTEUR + 2];
 		this.joueurs = new ArrayList<>(modele.joueurs);
-		
+
 		for (int i = 0; i <= LARGEUR; i++) {
 			for (int j = 0; j <= HAUTEUR; j++) {
-				cellules[i][j] = new Cellule(this,modele.cellules[i][j]);
+				cellules[i][j] = new Cellule(this, modele.cellules[i][j]);
 			}
 		}
-		
+
 		this.indexJoueurTour = modele.indexJoueurTour;
 	}
 
@@ -110,36 +108,34 @@ public class Modele extends Observable {
 	 * On coule des cellules prises aux hasard, et on implante aussi les artefacts
 	 */
 	public void init() {
-		
-		Random random = new Random();
-		
-		// Couler 3 cellules
-		for (int k = 0; k < 3; k++){
-			int i,j;
-			do {
-				i = random.nextInt(LARGEUR);
-				j = random.nextInt(HAUTEUR);
-			} while (!cellules[i][j].estSeche());
-			cellules[i][j].couler();
+
+		// Couler des cellules
+		int nombresDeZonesCoulees = 0;
+		while (nombresDeZonesCoulees < 3) {
+			int X = (int) ((double) LARGEUR * Math.random());
+			int Y = (int) ((double) HAUTEUR * Math.random());
+			if (this.cellules[X][Y].estSeche()) {
+				this.cellules[X][Y].etat = 1;
+				nombresDeZonesCoulees++;
+			}
 		}
-		
+
 		// Ajouter les 4 artefacts
 		LinkedList<Artefact> artefactsDeLile = new LinkedList<>();
-		for (int k= 0; k < 4; k++) {
-			int i,j;
-			do {
-				i = random.nextInt(LARGEUR);
-				j = random.nextInt(HAUTEUR);
-			} while (!cellules[i][j].estSeche() && cellules[i][j].getArtefact()!= null);
-			
-			Artefact artefact = null;
-			
-			do {
-				artefact = Artefact.randomArtefact();
-			} while (artefactsDeLile.contains(artefact));
-			
-			this.cellules[i][j].artefact = artefact;
-			artefactsDeLile.add(artefact);
+		for (int k = 0; k < 4;) {
+			int i, j;
+			i = (int) ((double) LARGEUR * Math.random());
+			j = (int) ((double) HAUTEUR * Math.random());
+			if (cellules[i][j].estSeche() && cellules[i][j].getArtefact() == null && (i!=0 || j!=0)) {
+				k++;
+				Artefact artefact = null;
+				do {
+					artefact = Artefact.randomArtefact();
+				} while (artefactsDeLile.contains(artefact));
+
+				this.cellules[i][j].artefact = artefact;
+				artefactsDeLile.add(artefact);
+			}
 		}
 	}
 
@@ -150,12 +146,12 @@ public class Modele extends Observable {
 		 * évolutions qui ont été calculées.
 		 */
 
-		int nombresDeCool = 0;
-		while (nombresDeCool < 3) {
+		int nombresDeZonesCoulees = 0;
+		while (nombresDeZonesCoulees < 3) {
 			int X = (int) ((double) LARGEUR * Math.random());
 			int Y = (int) ((double) HAUTEUR * Math.random());
 			if (this.cellules[X][Y].couler()) {
-				nombresDeCool++;
+				nombresDeZonesCoulees++;
 			}
 		}
 
@@ -178,28 +174,28 @@ public class Modele extends Observable {
 
 	public void tour() {
 		// Demande l'action au joueur dont c'est le tour
-		
+
 		for (int k = 0; k < 3; k++) {
 			this.joueurTour().demandeAction();
 			notifyObservers();
 		}
-		
+
 		// Don d'une clé
-		
-		if (this.joueurTour().getCle() == null && Math.random()<0.4 && !this.clesRestantes.isEmpty()) {
+
+		if (this.joueurTour().getCle() == null && Math.random() < 0.4 && !this.clesRestantes.isEmpty()) {
 			Artefact cle = null;
 			do {
 				cle = Artefact.randomArtefact();
 			} while (!this.clesRestantes.contains(cle));
-			
+
 			this.joueurTour().recevoirCle(cle);
-			
-			System.out.println("Vous avez gagné la clé "+cle+", "+this.joueurTour().toString()+" !");
+
+			System.out.println("Vous avez gagné la clé " + cle + ", " + this.joueurTour().toString() + " !");
 			this.clesRestantes.remove(cle);
 		}
-		
+
 		this.indexJoueurTour++;
-		
+
 		notifyObservers();
 	}
 

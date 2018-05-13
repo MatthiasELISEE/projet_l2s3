@@ -56,14 +56,7 @@ public class Cellule {
 	public Cellule(Cellule c) {
 		this(new Modele(c.modele),c);
 	}
-	/*
-	 * this.CordJoueurX=-1; this.CordJoueurY=-1;
-	 */
-
-	/*
-	 * public void InitJoueur () { this.CordJoueurX= 1; this.CordJoueurY= 1;
-	 * this.YajoueurC=true; }
-	 */
+	
 	/**
 	 * Le passage Ã  la génération suivante se fait en deux étapes : - D'abord on
 	 * calcule pour chaque cellule ce que sera sont état Ã  la génération suivante
@@ -74,13 +67,6 @@ public class Cellule {
 	 */
 	private int prochainEtat;
 
-
-	// protected void evalue() {
-	// if (this.etat != 0 && this.safe) {
-	// this.prochainEtat = this.etat + this.modele.shouldWeKill(x,y);
-	// this.safe=false;
-	// }
-	// }
 
 	protected void evolue() {
 		if (this.pasCoulee && this.pasAssechee) {

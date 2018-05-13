@@ -17,9 +17,7 @@ public class VueItems extends JPanel implements Observer {
 	private Modele modele;
 	/** On maintient une rÃ©fÃ©rence vers le modÃ©le. */
 	private Image img;
-	private Image imgFeu;
 	Font f;
-	/** DÃ©finition d'une taille (en pixels) pour l'affichage des cellules. */
 	private final static int TAILLE = 80;
 
 	/** Constructeur. */
@@ -114,21 +112,6 @@ public class VueItems extends JPanel implements Observer {
 				} catch (IOException exc) {
 					exc.printStackTrace();
 				}
-			} else {
-				str = " : voici les artefacts";
-				try {
-					Image img2 = ImageIO.read(new File("elements.jpg"));
-					g.setFont(f);
-					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, coordString, coord);
-					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
-							TAILLE / 4, this);
-
-					coord = coord + 20;
-				} catch (IOException exc) {
-					exc.printStackTrace();
-				}
-
 			}
 
 		}

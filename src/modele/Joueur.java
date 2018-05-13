@@ -60,6 +60,7 @@ public class Joueur {
 		if (valide(i, j)) {
 			if (this.modele.cellules[i][j].etat == 1) {
 			this.modele.cellules[i][j].assecher();
+			this.modele.cellules[i][j].evolue();
 			return true;
 			} else {
 				System.err.println("Impossible d'assécher une zone qui est sèche, ou complètement inondée.");
@@ -176,7 +177,7 @@ public class Joueur {
 			String action, direction;
 			do {
 				System.out.println(
-						"Sélectionner action : (d)éplacement, (a)ssèchement, (r)écupérer artefact, (n)e rien faire");
+						"Sélectionner action : (d)éplacement, (a)ssèchement, (r)écupérer artefact, (n)e rien faire, puis appuyer sur Entrée");
 				action = br.readLine();
 				if (action.equals("n")) {
 					System.out.println("Patience et longueur de temps valent mieux que force ni que rage");
