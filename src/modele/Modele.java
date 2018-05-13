@@ -20,7 +20,7 @@ import main.*;
  */
 public class Modele extends Observable {
 	/** On fixe la taille de la grille. */
-	public static final int HAUTEUR = 5, LARGEUR = 5;
+	public static final int HAUTEUR = 4, LARGEUR = 4;
 	/** On stocke un tableau de cellules. */
 	Cellule[][] cellules;
 	private ArrayList<Joueur> joueurs;

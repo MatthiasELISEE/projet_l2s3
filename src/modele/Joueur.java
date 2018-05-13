@@ -32,9 +32,9 @@ public class Joueur {
 		} catch (NoSuchElementException n) {
 			throw new NoSuchElementException("Plus de noms disponibles !");
 		}
-		
+
 	}
-	
+
 	public Artefact getCle() {
 		return cle;
 	}
@@ -57,10 +57,16 @@ public class Joueur {
 	}
 
 	boolean assecher(int i, int j) {
-		if (valide(i, j) && this.modele.cellules[i][j].etat == 1) {
+		if (valide(i, j)) {
+			if (this.modele.cellules[i][j].etat == 1) {
 			this.modele.cellules[i][j].assecher();
 			return true;
+			} else {
+				System.err.println("Impossible d'assécher une zone qui est sèche, ou complètement inondée.");
+				return false;
+			}
 		} else {
+			System.err.println("Impossible de se déplacer vers une zone submergée.");
 			return false;
 		}
 	}
@@ -84,16 +90,16 @@ public class Joueur {
 
 	// Cette fonction permet de récupérer un artefact depuis des coordonnées
 	Artefact recupereArtefact(int i, int j) {
-		if (valide(i,j)) {
+		if (valide(i, j)) {
 			Cellule c = this.modele.getCellule(i, j);
-	
+
 			if (Math.abs(i - x) < 2 && Math.abs(j - y) < 2 && this.cle == c.artefact) {
 				Artefact returned = c.artefact;
 				this.cle = null;
 				c.artefact = null;
 				return returned;
 			}
-	
+
 			return null;
 		} else {
 			return null;
@@ -101,7 +107,7 @@ public class Joueur {
 	}
 
 	boolean faitAction(String instruction) {
-				
+
 		if (instruction.equals("dg") && deplacer(x - 1, y)) {
 			System.out.println("tu es allé(e) à gauche");
 		} else if (instruction.equals("dd") && deplacer(x + 1, y)) {
@@ -112,17 +118,13 @@ public class Joueur {
 			System.out.println("tu es allé(e) en bas");
 		}
 
-		else if (instruction.equals("ag") && this.x - 1 >= 0) {
-			this.assecher(this.x - 1, this.y);
+		else if (instruction.equals("ag") && assecher(this.x - 1, this.y)) {
 			System.out.println("tu as asséché à gauche");
-		} else if (instruction.equals("ad") && this.x + 1 < Modele.LARGEUR) {
-			this.assecher(this.x + 1, this.y);
+		} else if (instruction.equals("ad") && assecher(this.x + 1, this.y)) {
 			System.out.println("tu as asséché à droite");
-		} else if (instruction.equals("ah") && this.y - 1 >= 0) {
-			this.assecher(this.x, this.y - 1);
+		} else if (instruction.equals("ah") &&  assecher(this.x, this.y - 1)) {
 			System.out.println("tu as asséché en haut");
-		} else if (instruction.equals("ab") && this.y + 1 < Modele.HAUTEUR) {
-			this.assecher(this.x, this.y + 1);
+		} else if (instruction.equals("ab") &&  assecher(this.x, this.y + 1)) {
 			System.out.println("tu as asséché en bas");
 		}
 
@@ -160,7 +162,6 @@ public class Joueur {
 		return true;
 	}
 
-	
 	// Demande puis fait une action, renvoie si l'action a été annulée ou non
 	public void demandeAction() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -187,12 +188,11 @@ public class Joueur {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	void recevoirCle(Artefact cle) {
 		this.cle = cle;
 	}
-	
-	
+
 }
