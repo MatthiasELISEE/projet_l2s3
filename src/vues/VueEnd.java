@@ -18,7 +18,6 @@ public class VueEnd extends JPanel implements Observer {
 	
 	private Image img;
 	private Modele modele;
-	private Joueur joueur;
 
 	
 	private final static int TAILLE = 50;
@@ -105,29 +104,8 @@ public class VueEnd extends JPanel implements Observer {
 	}
 
 	public void paint(Graphics g) {
-		// Effa√ßage du pr√©c√©dent affichage par l'appel de la classe m√®re
+		// EffaÁage du prÈcÈdent affichage par l'appel de la classe m√®re
 		super.paint(g);
-
-		// On v√©rifie si on a perdu
-		// TODO: sauf qu'on peut pas encore
-		// if (modele.joueurs().size()<4) {
-		// try {
-		// img = ImageIO.read(new File("end.jpg"));
-		// } catch (IOException exc) {
-		// exc.printStackTrace();
-		// }
-		// g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 6, this);
-		// Sound player = new Sound("mario.WAV");
-		// InputStream stream = new ByteArrayInputStream(player.getSamples());
-		// player.play(stream);
-		//
-		// try {
-		// Thread.sleep(5000);
-		// System.exit(0);
-		// } catch (InterruptedException ex) {
-		// Thread.currentThread().interrupt();
-		// }
-		// }
 
 		int nombredArtefact = 0;
 
@@ -138,7 +116,7 @@ public class VueEnd extends JPanel implements Observer {
 					nombredArtefact++;
 
 				}
-				//Si la case d√©part est sous l'eau: Perdu
+				//Si la case dÈpart est sous l'eau: Perdu
 				if(modele.getCellule(0, 0).estSousLEau()) {
 					try {
 						img = ImageIO.read(new File("end.jpg"));
@@ -146,7 +124,7 @@ public class VueEnd extends JPanel implements Observer {
 						exc.printStackTrace();
 					}
 					g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 3, this);
-					g.drawString("Case d√©part coul√©e", 10, 175);
+					g.drawString("Case dÈpart coulÈe", 10, 175);
 					Sound player = new Sound("mario.WAV");
 					InputStream stream = new ByteArrayInputStream(player.getSamples());
 					player.play(stream);
@@ -158,7 +136,8 @@ public class VueEnd extends JPanel implements Observer {
 						Thread.currentThread().interrupt();
 					}
 				}
-				//Si la case o√π est le joueur s'inonde: Perdu
+				
+				//Si la case o˘ est le joueur s'inonde: Perdu
 				if (modele.getCellule(i - 1, j - 1).estSousLEau() == true && modele.getCellule(i - 1, j - 1).Yatiljoueur()) {
 					try {
 						img = ImageIO.read(new File("end.jpg"));
@@ -166,7 +145,7 @@ public class VueEnd extends JPanel implements Observer {
 						exc.printStackTrace();
 					}
 					g.drawImage(img, 0, 0, TAILLE * 4, TAILLE * 3, this);
-					g.drawString("La case s'est inond√©e", 10, 175);
+					g.drawString("La case s'est inondÈe", 10, 175);
 					Sound player = new Sound("mario.WAV");
 					InputStream stream = new ByteArrayInputStream(player.getSamples());
 					player.play(stream);
@@ -181,7 +160,7 @@ public class VueEnd extends JPanel implements Observer {
 			}
 		}
 
-		// Si on a gagn√©
+		// Si on a gagnÈ
 		if (nombredArtefact == 0 && modele.getCellule(0, 0).getJoueurs().size() == modele.joueurs().size()) {
 			try {
 				img = ImageIO.read(new File("win.jpg"));

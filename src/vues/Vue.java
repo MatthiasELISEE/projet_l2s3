@@ -37,7 +37,7 @@ public class Vue {
 	public Vue(Modele modele) {
 		/** DÃ©finition de la fenÃªtre principale. */
 		frame = new JFrame();
-		frame.setTitle("L'Ile interdite : plus ça coule moins c'est cool");
+		frame.setTitle("L'Ile interdite : plus �a coule moins c'est cool");
 		/**
 		 * On prÃ©cise un mode pour disposer les diffÃ©rents Ã©lÃ©ments Ã l'intÃ©rieur
 		 * de la fenÃªtre. Quelques possibilitÃ©s sont : - BorderLayout (dÃ©faut pour la

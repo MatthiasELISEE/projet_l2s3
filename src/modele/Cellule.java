@@ -8,17 +8,17 @@ import javax.swing.JFrame;
 import vues.*;
 
 /**
- * D√©finition d'une classe pour les cellules. Cette classe fait encore partie du
+ * DÈfinition d'une classe pour les cellules. Cette classe fait encore partie du
  * mod√®le.
  */
 public class Cellule {
 	/** On conserve un pointeur vers la classe principale du mod√®le. */
 	private Modele modele;
 
-	/** L'√©tat d'une cellule est donn√© par un bool√©en. */
+	/** L'Ètat d'une cellule est donnÈ par un boolÈen. */
 	public int etat;
 	/**
-	 * On stocke les coordonn√©es pour pouvoir les passer au mod√®le lors de l'appel √†
+	 * On stocke les coordonnÈes pour pouvoir les passer au mod√®le lors de l'appel √†
 	 * [compteVoisines].
 	 */
 	private final int x, y;
@@ -65,12 +65,12 @@ public class Cellule {
 	 * this.YajoueurC=true; }
 	 */
 	/**
-	 * Le passage √† la g√©n√©ration suivante se fait en deux √©tapes : - D'abord on
-	 * calcule pour chaque cellule ce que sera sont √©tat √† la g√©n√©ration suivante
-	 * (m√©thode [evalue]). On stocke le r√©sultat dans un attribut suppl√©mentaire
-	 * [prochainEtat]. - Ensuite on met √† jour l'ensemble des cellules (m√©thode
-	 * [evolue]). Objectif : √©viter qu'une √©volution imm√©diate d'une cellule pollue
-	 * la d√©cision prise pour une cellule voisine.
+	 * Le passage √† la gÈnÈration suivante se fait en deux Ètapes : - D'abord on
+	 * calcule pour chaque cellule ce que sera sont Ètat √† la gÈnÈration suivante
+	 * (mÈthode [evalue]). On stocke le rÈsultat dans un attribut supplÈmentaire
+	 * [prochainEtat]. - Ensuite on met √† jour l'ensemble des cellules (mÈthode
+	 * [evolue]). Objectif : Èviter qu'une Èvolution immÈdiate d'une cellule pollue
+	 * la dÈcision prise pour une cellule voisine.
 	 */
 	private int prochainEtat;
 

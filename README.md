@@ -2,7 +2,7 @@
 
 Bonjour Monsieur le visiteur incongru, voici mon projet de POGL.
 
-J'aurais dû le mettre en privé mais j'ai la flemme de payer pour cacher du code aussi pourri.
+J'aurais dû le mettre en priv� mais j'ai la flemme de payer pour cacher du code aussi pourri.
 
 Voici la licence :
 
