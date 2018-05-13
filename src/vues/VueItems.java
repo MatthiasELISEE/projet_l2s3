@@ -47,13 +47,14 @@ public class VueItems extends JPanel implements Observer {
 			exc.printStackTrace();
 		}
 
-		// g.drawImage(img, x, y, this);
-		// g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		// image score
+
 		g.drawImage(img, 50, 10, TAILLE * 4, TAILLE * 2, this);
 		f = new Font("Arial", Font.BOLD, 15);
-
+		int coordString = 90;
 		int coord = 200;
-		int coordXImg = 305;
+		int coordXImg = 240;
+
 		for (Joueur j : this.modele.joueurs()) {
 			String str = "";
 			if (j.getCle() == Artefact.eau) {
@@ -63,7 +64,7 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("eau.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, 120, coord);
+					g.drawString(j.toString() + str, coordString, coord);
 					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
@@ -78,7 +79,7 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("feu.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, 120, coord);
+					g.drawString(j.toString() + str, coordString, coord);
 					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
@@ -92,7 +93,7 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("terre.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, 120, coord);
+					g.drawString(j.toString() + str, coordString, coord);
 					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
@@ -106,7 +107,7 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("air.png"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, 120, coord);
+					g.drawString(j.toString() + str, coordString, coord);
 					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
 					coord = coord + 20;
@@ -119,9 +120,10 @@ public class VueItems extends JPanel implements Observer {
 					Image img2 = ImageIO.read(new File("elements.jpg"));
 					g.setFont(f);
 					g.setColor(Color.BLUE);
-					g.drawString(j.toString() + str, 120, coord);
+					g.drawString(j.toString() + str, coordString, coord);
 					g.drawImage(img2, coordXImg + str.length() * 2 + j.toString().length() * 2, coord - 15, TAILLE / 4,
 							TAILLE / 4, this);
+
 					coord = coord + 20;
 				} catch (IOException exc) {
 					exc.printStackTrace();
