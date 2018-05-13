@@ -20,7 +20,7 @@ import main.*;
  */
 public class Modele extends Observable {
 	/** On fixe la taille de la grille. */
-	public static final int HAUTEUR = 3, LARGEUR = 3;
+	public static final int HAUTEUR = 5, LARGEUR = 5;
 	/** On stocke un tableau de cellules. */
 	Cellule[][] cellules;
 	private ArrayList<Joueur> joueurs;
@@ -56,7 +56,6 @@ public class Modele extends Observable {
 		 * Pour éviter les problèmes aux bords, on ajoute une ligne et une colonne de
 		 * chaque cÃ´té, dont les cellules n'évolueront pas.
 		 */
-		// }
 		
 		if (nombreDeJoueurs > Joueur.noms.size()) {
 			throw new IndexOutOfBoundsException();
@@ -185,7 +184,7 @@ public class Modele extends Observable {
 		
 		// Don d'une clé
 		
-		if (this.joueurTour().cle == null && Math.random()<0.4 && !this.clesRestantes.isEmpty()) {
+		if (this.joueurTour().getCle() == null && Math.random()<0.4 && !this.clesRestantes.isEmpty()) {
 			Artefact cle = null;
 			do {
 				cle = Artefact.randomArtefact();
