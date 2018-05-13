@@ -1,10 +1,7 @@
 package modele;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -113,22 +110,27 @@ public class Modele extends Observable {
 	 * On coule des cellules prises aux hasard, et on implante aussi les artefacts
 	 */
 	public void init() {
-		for (int i = 0; i <= LARGEUR; i++) {
-			for (int j = 0; j <= HAUTEUR; j++) {
-				if (Math.random() < randomHelper) {
-					cellules[i][j].etat = 1;
-				}
-			}
-		}
 		
 		Random random = new Random();
+		
+		// Couler 3 cellules
+		for (int k = 0; k < 3; k++){
+			int i,j;
+			do {
+				i = random.nextInt(LARGEUR);
+				j = random.nextInt(HAUTEUR);
+			} while (!cellules[i][j].estSeche());
+			cellules[i][j].couler();
+		}
+		
+		// Ajouter les 4 artefacts
 		LinkedList<Artefact> artefactsDeLile = new LinkedList<>();
 		for (int k= 0; k < 4; k++) {
 			int i,j;
 			do {
 				i = random.nextInt(LARGEUR);
 				j = random.nextInt(HAUTEUR);
-			} while (!cellules[i][j].estSeche());
+			} while (!cellules[i][j].estSeche() && cellules[i][j].getArtefact()!= null);
 			
 			Artefact artefact = null;
 			

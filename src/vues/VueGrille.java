@@ -49,7 +49,7 @@ public class VueGrille extends JPanel implements Observer {
 	 * [repaint].
 	 */
 	public void update() {
-		super.repaint();
+		this.paintComponent(this.getGraphics());;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class VueGrille extends JPanel implements Observer {
 	 * [Cellule] était déclarée privée dans [CModele].
 	 */
 
-	private void paint(Graphics g, Cellule c, int x, int y) {		
+	private void paint(Graphics g, Cellule c, int x, int y) {
 		/** Sélection d'une couleur. */
 
 		if (c.etat == 0) {
