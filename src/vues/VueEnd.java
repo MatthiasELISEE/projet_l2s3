@@ -161,7 +161,7 @@ public class VueEnd extends JPanel implements Observer {
 		}
 
 		// Si on a gagné
-		if (nombredArtefact == 3 && modele.getCellule(0, 0).getJoueurs().size() == modele.joueurs().size()) {
+		if (nombredArtefact == 4 && modele.getCellule(0, 0).getJoueurs().size() != modele.joueurs().size()) {
 			try {
 				img = ImageIO.read(new File("win.jpg"));
 			} catch (IOException exc) {
