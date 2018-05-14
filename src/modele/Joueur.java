@@ -52,7 +52,7 @@ public class Joueur {
 	}
 
 	public boolean valide(int i, int j) {
-		return (x >= 0 && y >= 0 && x < Modele.LARGEUR && y < Modele.HAUTEUR && Math.abs(i - x) < 2
+		return (i >= 0 && j >= 0 && i < Modele.LARGEUR && j < Modele.HAUTEUR && Math.abs(i - x) < 2
 				&& Math.abs(j - y) < 2);
 	}
 
